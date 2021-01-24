@@ -1,0 +1,46 @@
+
+body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
+.fontW{font-weight: bold}
+.fontS14{font-size: 14px;}
+.fontS18{font-size: 18px;}
+.fontS20{font-size: 20px;}
+.fontS22{font-size: 22px;}
+.fontS24{font-size: 24px;}
+.fontS26{font-size: 26px;}
+.fontS28{font-size: 28px;}
+.fontS32{font-size: 32px;}
+
+.mgr10{margin-right: 10px;}
+.mgr15{margin-right: 15px;}
+.mgr20{margin-right: 20px;}
+
+.mgt10{margin-top: 10px}
+.mgt15{margin-top: 15px}
+.mgt20{margin-top: 20px}
+.mgt50{margin-top: 50px}
+.mgt100{margin-top: 100px}
+
+.mgb10{margin-bottom: 10px}
+.mgb15{margin-bottom: 15px}
+.mgb20{margin-bottom: 20px}
+.mgb50{margin-bottom: 50px}
+.mgb100{margin-bottom: 100px}
+
+.mgl10{margin-left: 10px}
+.mgl15{margin-left: 15px}
+.mgl20{margin-left: 20px}
+
+.pad10{padding: 10px}
+
+.wid30{width: 30%}
+.height33{height: 33%}
+.flexAC{display: flex;align-items: center;}
+.flexAE{display: flex;align-items: end}
+.flexJB{display: flex;justify-content: space-between}
+.flexJE{display: flex;justify-content: space-evenly}
+.flexJC{display: flex;justify-content: center}
+.flexWrap{display: flex;flex-wrap: wrap}
+.flexDc{display: flex;flex-direction: column}
+
+.fontC999{color: #999999}
+.textAC{text-align: center}
