@@ -9,6 +9,7 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .fontS26{font-size: 26px;}
 .fontS28{font-size: 28px;}
 .fontS32{font-size: 32px;}
+.fontS34{font-size: 34px;}
 
 .mgr10{margin-right: 10px;}
 .mgr15{margin-right: 15px;}
@@ -17,9 +18,11 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .mgt10{margin-top: 10px}
 .mgt15{margin-top: 15px}
 .mgt20{margin-top: 20px}
+.mgt25{margin-top: 25px}
 .mgt50{margin-top: 50px}
 .mgt100{margin-top: 100px}
 
+.mgb5{margin-bottom: 5px}
 .mgb10{margin-bottom: 10px}
 .mgb15{margin-bottom: 15px}
 .mgb20{margin-bottom: 20px}
@@ -31,6 +34,13 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .mgl20{margin-left: 20px}
 
 .pad10{padding: 10px}
+.pad1020{padding: 10px 20px}
+
+.pdl10{padding-left: 10px}
+.pdl20{padding-left: 20px}
+
+.pdr10{padding-right: 10px}
+.pdr20{padding-right: 20px}
 
 .wid30{width: 30%}
 .height33{height: 33%}
@@ -38,6 +48,7 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .flexAE{display: flex;align-items: end}
 .flexJB{display: flex;justify-content: space-between}
 .flexJE{display: flex;justify-content: space-evenly}
+.flexJA{display: flex;justify-content: space-around}
 .flexJC{display: flex;justify-content: center}
 .flexWrap{display: flex;flex-wrap: wrap}
 .flexDc{display: flex;flex-direction: column}

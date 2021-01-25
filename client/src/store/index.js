@@ -7,7 +7,8 @@ const store =  new Vuex.Store({
 
   state: {
     userInfo:{},
-    friendList:[]
+    friendList:[], // 好友列表
+    searchUserInfo:{}, // 查找后的好友信息
     //这里放全局参数
 
   },
@@ -20,11 +21,16 @@ const store =  new Vuex.Store({
     },
     setFriendList(state,param){
       state.friendList = param
+    },
+    setSearchUserInfo(state,param){
+      state.searchUserInfo = param
     }
   },
 
   getters: {        //这里是get方法 
-    getUserInfo: state => state.userInfo 
+    getUserInfo: state => state.userInfo ,
+    searchUserInfo: state => state.searchUserInfo ,
+
   },
 
   actions: {

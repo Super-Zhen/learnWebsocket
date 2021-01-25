@@ -68,6 +68,7 @@
             // 通过返回的信息判断是否是好友
           if(result.relations === 1){
             // 跳转路由的时候需要将用到的信息都传递过去 不能通过url  需要通过store进行存储
+            this.$store.commit('setSearchUserInfo',result)
               this.$router.push({
                 name:'UserInfo',
                 params:{

@@ -9,6 +9,7 @@ const Info = () => import(/* webpackChunkName: 'Info'*/  '@/pages/me/Info')
 const Friends = () => import(/* webpackChunkName: 'Friends'*/  '@/pages/Friends')
 const Search = () => import(/* webpackChunkName: 'Search'*/  '@/pages/Search')
 const UserInfo = () => import(/* webpackChunkName: 'UserInfo'*/ '@/pages/UserInfo')
+const Room = () => import(/* webpackChunkName: 'Room'*/ '@/pages/Room')
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
@@ -89,6 +90,14 @@ const router =  new Router({
         requireLogin:false
       },
       component: UserInfo
+    },{
+      path: '/room/:id',
+      name: 'room',
+      meta:{
+        isShowFooter:false,
+        requireLogin:false
+      },
+      component: Room
     }
   ]
 })
