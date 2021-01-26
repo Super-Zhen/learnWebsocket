@@ -74,12 +74,11 @@
             const obj ={username:this.username,userpwd:md5s(this.password)}
             let res = ''
             try {
-               res = await this.$store.dispatch('Login',obj)
-
-              localStorage.setItem('token',res.token)
-              localStorage.setItem('isLogin',res.isLogin)
-              this.$store.dispatch('GetInfo',{token:localStorage.getItem("token")})
-              this.$router.replace('/')
+                res = await this.$store.dispatch('Login',obj)
+                localStorage.setItem('token',res.token)
+                localStorage.setItem('isLogin',res.isLogin)
+                await this.$store.dispatch('GetInfo')
+                this.$router.replace('/')
             }catch (e) {
               debugger
               console.log(e.response)

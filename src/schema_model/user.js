@@ -12,7 +12,8 @@ const UserSchema = new Schema({
     gender:{type:String,default:''},                // 性别
     sign:{type:String,default:''},                  // 签名
     logindate : { type: Date,default:Date.now},     // 最近登录时间
-    createdate:{type:Date}                          // 注册时间
+    createdate:{type:Date},                          // 注册时间
+    friendList:{type:Array}                         // 好友列表
 })
 UserSchema.statics.findUser = function(param,cb){
             return this.find(param,cb)

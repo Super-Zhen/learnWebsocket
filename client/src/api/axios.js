@@ -12,7 +12,7 @@ instance.interceptors.request.use(config=>{
   if(config.url && config.url.charAt(0) === '/'){
     config.url = `${config.url}`
   }
-  let token = sessionStorage.getItem('token')
+  let token = localStorage.getItem('token')
   config.headers.authorization = token===null?'':token
   return config
 },error => Promise.reject(error))

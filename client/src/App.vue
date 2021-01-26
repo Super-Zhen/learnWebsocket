@@ -17,7 +17,7 @@ export default {
   mounted() {
     console.log(this.$route.path)
     if (localStorage.getItem("token") || !to.meta.requireLogin) {
-      this.$store.dispatch('GetInfo',{token:localStorage.getItem("token")})
+      this.$store.dispatch('GetInfo')
     }
     // console.log('12312',this.$store.getters.getUserInfo.email)
   }

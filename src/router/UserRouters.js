@@ -68,10 +68,10 @@ module.exports = function(app){
     });
 // 用户刷新页面或者重新登录得时候
     app.get('/user/getInfo',function (req,res) {
-        const {token} = req.query
+        const token = req.headers.authorization
         let payloads = jwt.verify(token,jsonwebtoken.key)
         console.log('token2',payloads)
-        User.findOne({username:payloads.username},{username:1,email:1,sign:1,gender:1,tel:1},(err,data)=>{
+        User.findOne({username:payloads.username},{username:1,email:1,sign:1,gender:1,tel:1,friendList:1},(err,data)=>{
             if(err) {
                 console.log(err)
                 res.status(500)}
