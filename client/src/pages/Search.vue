@@ -55,6 +55,9 @@
             if(id === "1"){ // 等于1得时候是查询好友
               this.$store.dispatch('FindFriend',{keyword:value})
             }else{ // 等于2的时候是查找用户
+              if(this.$store.getters.getUserInfo.email === value){
+                return false
+              }
               const result = await this.$store.dispatch('FindUserByEmail',{email:value})
               this.friendsList = result
             }
@@ -65,10 +68,10 @@
             const data = {user_id,friend_id: param}
             const result = await this.$store.dispatch('FindRelation',data)
             console.log(result)
-            // 通过返回的信息判断是否是好友
+            this.$store.commit('setSearchUserInfo',result)
+          // 通过返回的信息判断是否是好友
           if(result.relations === 1){
             // 跳转路由的时候需要将用到的信息都传递过去 不能通过url  需要通过store进行存储
-            this.$store.commit('setSearchUserInfo',result)
               this.$router.push({
                 name:'UserInfo',
                 params:{
@@ -80,6 +83,12 @@
                 //     id:result.relations
                 //   }
                 // })
+          }else{
+            this.$router.push({
+              name:'UserInfo',
+              params:{
+                id:result.relations
+              }})
           }
         }
       }

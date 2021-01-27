@@ -62,6 +62,11 @@ const store =  new Vuex.Store({
     async FindRelation({},data){
       const result = await serverApi.findRelation(data)
       return result
+    },
+    async AddFriend({commit},data){
+      const result = await serverApi.addFriend(data)
+      commit('setUserInfo',result)
+      return result
     }
 
   },

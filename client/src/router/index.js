@@ -91,7 +91,7 @@ const router =  new Router({
       },
       component: UserInfo
     },{
-      path: '/room/:id',
+      path: '/room',
       name: 'room',
       meta:{
         isShowFooter:false,

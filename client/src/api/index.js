@@ -11,7 +11,9 @@ const serverApi = {
   // 查找用户 通过邮箱进行查找
   findUserByEmail: data => axios.get('/api/find/userByEmail',{params:data}),
   // 查看用户是否是好友关系
-  findRelation: data => axios.post('/api/find/relation',data)
+  findRelation: data => axios.post('/api/find/relation',data),
+  // 添加好友
+  addFriend: data=> axios.post('/api/find/addFriend',data)
   }
 
 export default serverApi

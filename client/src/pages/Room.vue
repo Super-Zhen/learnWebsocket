@@ -1,13 +1,17 @@
 <template>
-    <div>
-      这是room
+    <div >
+      <send-box></send-box>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "room"
+  import SendBox from 'components/room/sendBox'
+  export default {
+    name: "room",
+    components:{
+      SendBox
     }
+  }
 </script>
 
 <style scoped>
