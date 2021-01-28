@@ -44,6 +44,7 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 
 .wid30{width: 30%}
 .height33{height: 33%}
+.flex{display: flex}
 .flexAC{display: flex;align-items: center;}
 .flexAE{display: flex;align-items: end}
 .flexJB{display: flex;justify-content: space-between}
@@ -54,4 +55,6 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .flexDc{display: flex;flex-direction: column}
 
 .fontC999{color: #999999}
+.fontCff347e{color: #ff347e}
 .textAC{text-align: center}
+.overfH{overflow: hidden}

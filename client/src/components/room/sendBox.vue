@@ -1,15 +1,9 @@
 <template>
-  <div>
-    <van-field
-      v-model="message"
-      center
-      clearable
-      placeholder="请输入"
-    >
-      <template #button>
-        <van-button size="small" type="primary">发送</van-button>
-      </template>
-    </van-field>
+  <div class="pad10 box">
+    <div class="borderR5 flexAC flexJB overfH">
+      <input class="message fontS22 pdl10" type="text" v-model="message">
+      <van-button class="submit fontS22 fontCff347e" @click="sendMsg">Send</van-button>
+    </div>
   </div>
 </template>
 
@@ -23,20 +17,48 @@
       },
       data(){
           return{
-            message:''
+            message:'',
+            messageCopy:''
           }
+      },
+      methods:{
+        sendMsg(){
+          this.messageCopy = this.message
+          this.message = ''
+          console.log(this.messageCopy)
+        }
       }
-
     }
 </script>
 
 <style scoped>
-  .van-cell{
-    padding: 0 10px;
-    line-height: 40px;
-    font-size: 20px;
+  .box{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f9f9f9;
+    /*border-top: 1px solid #f5f5f5;*/
+    box-shadow: 0 0px 2px #d5d5d5;
   }
-  .van-field__control{
-    border: 1px solid red;
+  .message{
+    border: none;
+    width: 100%;
+    height: 42px;
   }
+  .borderR5{
+    border-radius: 5px;
+  }
+  .submit{
+    border: none;
+    outline: none;
+  }
+  /*.van-cell{*/
+  /*  !*padding: 2px 10px;*!*/
+  /*  line-height: 50px;*/
+  /*  font-size: 20px;*/
+  /*}*/
+  /*.van-field__control{*/
+  /*  border: 1px solid red;*/
+  /*}*/
 </style>
