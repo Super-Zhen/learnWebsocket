@@ -25,7 +25,18 @@ export default {
             clearTimeout(timer)
             timer = setTimeout(()=>fn(param),delay)
         }
+      },
+      // 获取url 参数
+      GetRequest() {
+        let url = window.location.href.split('?')[1]; //获取url中"?"符后的字串
+        let theRequest = new Object();
+          let strs = url.split("&");
+          for(let i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+          }
+        return theRequest;
       }
     }
   }
 }
+

@@ -48,7 +48,11 @@
         toRoom(){
           // 点击发送消息
           this.$router.push({
-
+              path:'/room',
+            query:{
+                room:this.$store.getters.searchUserInfo.roomId,
+                isSingle:1
+            }
           })
         },
         async addFriend(id){

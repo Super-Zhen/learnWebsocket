@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <div class="flex box pad10">
-      <div class="mgl10 flex imgBox" ><span class="img" ></span></div>
-      <div class="message messageRadiusRight"><span class="pad10">
-        你好你好你好你好你好你好你好你好你好你好你好你好
+      <div class="flex pad10" :class="[isMe ? 'box':'box1']">
+        <div class="flex imgBox" ><span class="img" ></span></div>
+        <div class="message"><span class="pad10">
+        {{message}}
       </span></div>
-    </div>
-    <div class="flex box1 pad10">
-      <div class="mgr10 flex imgBox" ><span class="img" ></span></div>
-      <div class="message messageRadiusLeft"><span class="pad10">
-        你好你好你好你好你好你好你好你好你好你好你好你好
-      </span></div>
-    </div>
-  </div>
-
-
+      </div>
 </template>
 
 <script>
-    export default {
-        name: "rigthMessage"
+  export default {
+    name: "rigthMessage",
+    props:['isMe','message'],
+    data(){
+      return{
+
+      }
     }
+  }
 </script>
 
 <style scoped>
@@ -34,25 +30,33 @@
   }
   .message{
     display: flex;
-    flex-direction: row-reverse;
-    width: 65%;
+
+    max-width: 65%;
     color: #fff;
     line-height: 24px;
     letter-spacing: 0.09px;
 
   }
-  .messageRadiusRight{
+  .box>.message{
     background-color: #ff347e;
     border-radius: 20px 20px 2px;
+    flex-direction: row-reverse;
   }
-  .messageRadiusLeft{
+  .box1>.message{
     background-color:#999;
     border-radius: 20px 20px 20px 2px;
   }
-  .message span{
-  }
+
   .imgBox{
     flex-flow: column-reverse;
+  }
+  .box>.imgBox{
+    margin-left: 10px;
+  }
+  .box1>.imgBox{
+    margin-right: 10px;
+
+
   }
 .img{
   width: 40px;

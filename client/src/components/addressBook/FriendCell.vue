@@ -43,7 +43,8 @@
         lists:()=>{
           // 获取到数据之后先将数据进行拼音格式化 然后进行排序
           const array = "ABCDEFGHIGKLMNOPQRSTUVWXYZ".split('')
-          // const res = this.$store.getters.getUserInfo.friendList
+          const res = this.$store.getters.getUserInfo.friendList
+          console.log(res)
          return array.map((item,index)=>{
             return {name:item,value:[item]}
           })

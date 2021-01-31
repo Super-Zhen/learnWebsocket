@@ -43,9 +43,9 @@ io.on('connection', socket => {
     socket.on('disconnect', () => {
         console.log('disconnect')
     })
-    socket.on('message',(data)=>{
+    socket.on('messages',(data)=>{
         console.log(data)
-        socket.emit('message',{value:data.value.split('').reverse().join('')})
+        socket.emit('messages',{value:data.value.split('').reverse().join('')})
     })
 });
 function verifyToken(req, res, next) {

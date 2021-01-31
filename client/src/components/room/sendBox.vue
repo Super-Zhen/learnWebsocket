@@ -9,26 +9,34 @@
 
 <script>
   import {Field,Button} from 'vant'
-    export default {
-        name: "sendBox",
-      components:{
-          [Field.name]:Field,
-          [Button.name]:Button,
-      },
-      data(){
-          return{
-            message:'',
-            messageCopy:''
-          }
-      },
-      methods:{
-        sendMsg(){
-          this.messageCopy = this.message
-          this.message = ''
-          console.log(this.messageCopy)
+  import {socket} from "../../../socket.config";
+
+export default {
+    name: "sendBox",
+    components:{
+        [Field.name]:Field,
+        [Button.name]:Button,
+    },
+    created(){
+         this.query = this.util.GetRequest()
+    },
+    data(){
+        return{
+          message:'',
+          messageCopy:''
         }
+    },
+    methods:{
+      sendMsg(){
+        if(!this.message) return
+        this.messageCopy = this.message
+        this.message = ''
+        socket.emit('messages',{value:this.messageCopy,query:this.query})
+        this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
+
       }
     }
+  }
 </script>
 
 <style scoped>

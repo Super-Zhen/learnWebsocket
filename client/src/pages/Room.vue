@@ -1,7 +1,11 @@
 <template>
     <div >
-      <send-box></send-box>
-      <message></message>
+      <send-box @getMessage="getMessage"></send-box>
+      <message v-for="item in List"
+               :key="item"
+        :message="item.value"
+        :isMe="item.isMe"
+      ></message>
     </div>
 </template>
 
@@ -13,6 +17,20 @@
     components:{
       SendBox,
       Message
+    },
+    data(){
+      return {
+        message:{},
+        List:[]
+      }
+    },
+    created(){
+      // this.message={}
+    },
+    methods:{
+      getMessage(data){
+        this.List.push( data)
+      }
     }
   }
 </script>

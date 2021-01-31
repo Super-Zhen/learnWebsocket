@@ -36,8 +36,9 @@ socket.on('connect_error',()=>{
     console.log('断开服务器连接')
   }
 })
-socket.on("message",(obj)=>{
-  console.log(obj)
+socket.on('messages',function (data) {
+  debugger
+  console.log("data-node",data)
 })
 /* eslint-disable no-new */
 new Vue({

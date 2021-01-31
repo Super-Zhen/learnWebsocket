@@ -25,9 +25,11 @@ module.exports = function (app) {
             const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}]})
             friendInfo = await User.findById(friend_id,{username:1,sign:1,gender:1,email:1})
             if(result && friendInfo){ // 如果查询到有数据
-                res.send(Object.assign({relations:result._doc.relations},{friendInfo:friendInfo._doc}))
+                res.send(Object.assign({relations:result._doc.relations},{friendInfo:friendInfo._doc},{roomId:result._doc.roomId}))
             }else if(!result && friendInfo){ // 用户存在不是好友
                 res.send(Object.assign({relations:2},{friendInfo:friendInfo._doc}))
+            } else {
+              res.send({msg:'用户不存在'})
             }
         }catch(e)
         {
