@@ -10,6 +10,6 @@ const Message = new Schema({
     receive_id:{type:String}, // 接收id
     roomId:{type:String}             // 房間號
 })
-const  Message = mongoose.model('Message',Message)
+const message = mongoose.model('Message',Message)
 
-module.exports = Message
+module.exports = message

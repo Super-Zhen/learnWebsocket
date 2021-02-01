@@ -1,7 +1,7 @@
 <template>
       <div class="flex pad10" :class="[isMe ? 'box':'box1']">
         <div class="flex imgBox" ><span class="img" ></span></div>
-        <div class="message"><span class="pad10">
+        <div class="message"><span class="pad10 flexAC">
         {{message}}
       </span></div>
       </div>

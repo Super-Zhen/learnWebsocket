@@ -1,8 +1,8 @@
 <template>
   <div class="pad10 box">
     <div class="borderR5 flexAC flexJB overfH">
-      <input class="message fontS22 pdl10" type="text" v-model="message">
-      <van-button class="submit fontS22 fontCff347e" @click="sendMsg">Send</van-button>
+      <input class="message fontS22 pdl10" type="text" v-model="message" @keyup.enter="sendMsg">
+      <van-button class="submit fontS22 fontCff347e" @click="sendMsg" >Send</van-button>
     </div>
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
         [Button.name]:Button,
     },
     created(){
-         this.query = this.util.GetRequest()
+      this.query = this.util.GetRequest()
+      this.id = this.$store.getters.getUserInfo._id
     },
     data(){
         return{
@@ -31,7 +32,17 @@ export default {
         if(!this.message) return
         this.messageCopy = this.message
         this.message = ''
-        socket.emit('messages',{value:this.messageCopy,query:this.query})
+        const data = {
+          content:this.messageCopy,
+          contentType:1,
+          info:{
+            roomId:this.query.room,
+            send_id:this.id,
+            send_time:Date.now(),
+            receive_id:'123123'
+          }
+        }
+        socket.emit('messages',data)
         this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
 
       }

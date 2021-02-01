@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParse = require('body-parser')
 const mongodb = require('./util/mongodb')
+const Message = require('./schema_model/message')
 const app = express()
 // const router = require('./router/index')
 const router = require('./router')
@@ -45,7 +46,21 @@ io.on('connection', socket => {
     })
     socket.on('messages',(data)=>{
         console.log(data)
-        socket.emit('messages',{value:data.value.split('').reverse().join('')})
+        console.log(io,socket)
+        io.to(data.id).emit('messages',{'qwe':'21312'})
+        // const saveData = new Message({
+        //     send_id:data.info.send_id, // 发送者的id
+        //     send_time:data.info.send_time,
+        //     content:data.content,
+        //     contentType:data.contentType, // 1 text 2 img 3 voice 4 video
+        //     receive_id:data.info.receive_id, // 接收id
+        //     roomId:data.info.roomId
+        // })
+        // saveData.save(function (err,data) {
+        //     socket.emit('status','1')
+        //     socket.emit('messages',saveData)
+        // })
+
     })
 });
 function verifyToken(req, res, next) {

@@ -1,8 +1,8 @@
 <template>
     <div >
       <send-box @getMessage="getMessage"></send-box>
-      <message v-for="item in List"
-               :key="item"
+      <message v-for="(item,index) in List"
+               :key="index"
         :message="item.value"
         :isMe="item.isMe"
       ></message>
