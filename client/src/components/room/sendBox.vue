@@ -20,6 +20,7 @@ export default {
     created(){
       this.query = this.util.GetRequest()
       this.id = this.$store.getters.getUserInfo._id
+      // 通过当前号查找接收消息用户的id
     },
     data(){
         return{

@@ -17,6 +17,7 @@ const maxNum = 10
 
 Vue.config.productionTip = false
 socket.on('connect', () => {
+
   if(num){
     console.log('重新连接到服务器')
     console.log(socket.id)
@@ -28,7 +29,11 @@ socket.on('connect', () => {
   }
   socket.emit('messages',{id:socket.id})
   // 连接成功之后需要将当前的socketId保存到数据库
-  console.log(store.state.userInfo._id)
+  debugger
+  if(store.state.userInfo._id){
+    console.log(store.state.userInfo._id)
+
+  }
 
 });
 socket.on('connect_error',()=>{
@@ -38,6 +43,9 @@ socket.on('connect_error',()=>{
   if(!socket.connected && num>maxNum){
     console.log('断开服务器连接')
   }
+})
+socket.on('message',function (data) {
+  console.log("data-node-message",data)
 })
 socket.on('messages',function (data) {
   console.log("data-node",data)

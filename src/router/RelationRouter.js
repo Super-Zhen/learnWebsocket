@@ -72,6 +72,7 @@ module.exports = function (app) {
             res.status(500).json({msg:'服务器错误'})
         }
     })
+    // 通过房间号 已经当前的用户
 }
  async function changeFriendList(user_id,friend_id,callback) {
     const result =await User.findById(friend_id,{username:1,_id:0})

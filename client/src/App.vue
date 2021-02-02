@@ -18,10 +18,10 @@ export default {
     debugger
 
   },
-  mounted() {
+  async mounted() {
     console.log(this.$route.path)
     if (localStorage.getItem("token")) {
-      this.$store.dispatch('GetInfo')
+     await this.$store.dispatch('GetInfo')
     }else{
       this.$router.replace('/login')
     }

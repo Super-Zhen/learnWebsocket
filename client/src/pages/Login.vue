@@ -31,6 +31,7 @@
 <script>
   import { Button,Form, Field,Dialog } from 'vant';
   import { getDAes,md5s} from "../../crypto";
+  import {socket} from "../../socket.config";
   import serverApi from '@/api/'
     export default {
         name: "Login",
@@ -74,13 +75,15 @@
             const obj ={username:this.username,userpwd:md5s(this.password)}
             let res = ''
             try {
-                res = await this.$store.dispatch('Login',obj)
-                localStorage.setItem('token',res.token)
-                localStorage.setItem('isLogin',res.isLogin)
-                await this.$store.dispatch('GetInfo')
-                this.$router.replace('/')
-            }catch (e) {
+              res = await this.$store.dispatch('Login',obj)
+              localStorage.setItem('token',res.token)
+              localStorage.setItem('isLogin',res.isLogin)
+              await this.$store.dispatch('GetInfo')
+              // 需要将用户信息进行存储到socket 文档中通过
               debugger
+              socket.emit('loginAfter',{user_id:this.$store.getters.getUserInfo._id})
+              this.$router.replace('/')
+            }catch (e) {
               console.log(e.response)
             }
               this.status = false

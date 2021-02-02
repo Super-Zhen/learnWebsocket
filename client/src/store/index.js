@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store =  new Vuex.Store({
 
   state: {
-    userInfo:{},
+    userInfo:JSON.parse(localStorage.getItem('userInfo'))?JSON.parse(localStorage.getItem('userInfo')):{},
     friendList:[], // 好友列表
     searchUserInfo:{}, // 查找后的好友信息
     //这里放全局参数
@@ -18,6 +18,7 @@ const store =  new Vuex.Store({
     //这里是set方法
     setUserInfo(state,param){
       state.userInfo = Object.assign(state.userInfo,param)
+      localStorage.setItem('userInfo',JSON.stringify(state.userInfo))
     },
     setFriendList(state,param){
       state.friendList = param
