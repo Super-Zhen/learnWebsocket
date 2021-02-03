@@ -50,7 +50,7 @@
           this.$router.push({
               path:'/room',
             query:{
-                room:this.$store.getters.searchUserInfo.roomId,
+                roomId:this.$store.getters.searchUserInfo.roomId,
                 isSingle:1
             }
           })

@@ -13,7 +13,9 @@ const serverApi = {
   // 查看用户是否是好友关系
   findRelation: data => axios.post('/api/find/relation',data),
   // 添加好友
-  addFriend: data=> axios.post('/api/find/addFriend',data)
+  addFriend: data=> axios.post('/api/find/addFriend',data),
+  // 通过房间号查询接收者的user_id
+  findRoomUser: data => axios.get('/api/find/roomUser',{params:data})
   }
 
 export default serverApi

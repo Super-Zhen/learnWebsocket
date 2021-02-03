@@ -68,6 +68,10 @@ const store =  new Vuex.Store({
       const result = await serverApi.addFriend(data)
       commit('setUserInfo',result)
       return result
+    },
+    async FindRoomUser({},data){
+      const result = await serverApi.findRoomUser(data)
+      return result
     }
 
   },

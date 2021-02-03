@@ -17,10 +17,13 @@ export default {
         [Field.name]:Field,
         [Button.name]:Button,
     },
-    created(){
+    async created(){
       this.query = this.util.GetRequest()
       this.id = this.$store.getters.getUserInfo._id
-      // 通过当前号查找接收消息用户的id
+      // 通过房间号查询接收者的user_id
+      debugger
+      this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
+      console.log('useArray',this.userArray)
     },
     data(){
         return{
@@ -28,6 +31,9 @@ export default {
           messageCopy:''
         }
     },
+  mounted(){
+
+  },
     methods:{
       sendMsg(){
         if(!this.message) return
@@ -37,10 +43,11 @@ export default {
           content:this.messageCopy,
           contentType:1,
           info:{
-            roomId:this.query.room,
+            roomId:this.query.roomId,
+            isSingle:this.query.isSingle,
             send_id:this.id,
             send_time:Date.now(),
-            receive_id:'123123'
+            receive_id:this.userArray
           }
         }
         socket.emit('messages',data)

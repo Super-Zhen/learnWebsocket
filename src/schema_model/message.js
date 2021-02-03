@@ -6,8 +6,9 @@ const Message = new Schema({
     send_id:{type:String}, // 发送者的id
     send_time:{type:Date},
     content:{type:String},
+    isSingle:Number,
     contentType:{type:Number}, // 1 text 2 img 3 voice 4 video
-    receive_id:{type:String}, // 接收id
+    receive_id:{type:Array}, // 接收id
     roomId:{type:String}             // 房間號
 })
 const message = mongoose.model('Message',Message)

@@ -27,12 +27,10 @@ socket.on('connect', () => {
     console.log(socket.id)
     num>maxNum?num=1:num++
   }
-  socket.emit('messages',{id:socket.id})
+  // socket.emit('messages',{id:socket.id})
   // 连接成功之后需要将当前的socketId保存到数据库
-  debugger
   if(store.state.userInfo._id){
     console.log(store.state.userInfo._id)
-
   }
 
 });

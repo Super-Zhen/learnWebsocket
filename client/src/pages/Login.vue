@@ -80,7 +80,6 @@
               localStorage.setItem('isLogin',res.isLogin)
               await this.$store.dispatch('GetInfo')
               // 需要将用户信息进行存储到socket 文档中通过
-              debugger
               socket.emit('loginAfter',{user_id:this.$store.getters.getUserInfo._id})
               this.$router.replace('/')
             }catch (e) {

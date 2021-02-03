@@ -27,6 +27,10 @@
     created(){
       // this.message={}
     },
+    mounted(){
+
+
+    },
     methods:{
       getMessage(data){
         this.List.push( data)

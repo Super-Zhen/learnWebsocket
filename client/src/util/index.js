@@ -35,7 +35,9 @@ export default {
             theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
           }
         return theRequest;
-      }
+      },
+      // 获取设备信息
+
     }
   }
 }
