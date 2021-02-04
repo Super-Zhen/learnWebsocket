@@ -25,7 +25,7 @@ instance.interceptors.response.use(response=>{
 },error => {
   Dialog.alert({
     title: '错误提示',
-    message: error.response.statusText,
+    message: error,
   })
     .then(() => {
     })

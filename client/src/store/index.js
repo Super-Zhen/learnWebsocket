@@ -9,7 +9,7 @@ const store =  new Vuex.Store({
     userInfo:JSON.parse(localStorage.getItem('userInfo'))?JSON.parse(localStorage.getItem('userInfo')):{},
     friendList:[], // 好友列表
     searchUserInfo:{}, // 查找后的好友信息
-    //这里放全局参数
+    rooms:{} // 将所有的房间号存放到这儿，每个房间号中包含信息以及信息状态
 
   },
 
@@ -25,13 +25,22 @@ const store =  new Vuex.Store({
     },
     setSearchUserInfo(state,param){
       state.searchUserInfo = param
+    },
+    setRooms(state,param){
+      debugger
+      const {roomId,info} = param
+      // 获取rooms 中所有的房间号 然后找到对应的房间号，将相应的信息存放进去
+      if(!state.rooms[roomId]) state.rooms[roomId]=[]
+        let length = state.rooms[roomId].length
+        state.rooms[roomId].push(info)
+        state.rooms = JSON.parse(JSON.stringify(state.rooms))
     }
   },
 
   getters: {        //这里是get方法 
     getUserInfo: state => state.userInfo ,
     searchUserInfo: state => state.searchUserInfo ,
-
+    getRooms: state => state.rooms ,
   },
 
   actions: {

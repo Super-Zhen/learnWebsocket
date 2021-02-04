@@ -9,6 +9,7 @@
 
 <script>
   import {Field,Button} from 'vant'
+  import {v4 as uuidv4} from 'uuid'
   import {socket} from "../../../socket.config";
 
 export default {
@@ -18,10 +19,10 @@ export default {
         [Button.name]:Button,
     },
     async created(){
+      this.index = 0
       this.query = this.util.GetRequest()
       this.id = this.$store.getters.getUserInfo._id
       // 通过房间号查询接收者的user_id
-      debugger
       this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
       console.log('useArray',this.userArray)
     },
@@ -40,19 +41,22 @@ export default {
         this.messageCopy = this.message
         this.message = ''
         const data = {
-          content:this.messageCopy,
-          contentType:1,
+          roomId:this.query.roomId,
           info:{
-            roomId:this.query.roomId,
+            content:this.messageCopy,
+            contentType:1,
             isSingle:this.query.isSingle,
             send_id:this.id,
             send_time:Date.now(),
-            receive_id:this.userArray
+            receive_id:this.userArray,
+            uid:uuidv4(),
+            isMe:true,
+            index:this.index++
           }
         }
         socket.emit('messages',data)
         this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
-
+        this.$store.commit('setRooms',{...data})
       }
     }
   }

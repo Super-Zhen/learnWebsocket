@@ -110,23 +110,30 @@ io.on('connection', socket => {
         // io.to(data.info.roomId).emit('messages',{'qwe':'大家好'})
         console.log(data)
         // io.to(data.id).emit('messages',{'qwe':'21312'})
+        const {send_id,send_time,content,contentType,receive_id,isSingle,uid,index} = data.info
         const saveData =await new Message({
-            send_id:data.info.send_id, // 发送者的id
-            send_time:data.info.send_time,
-            content:data.content,
-            contentType:data.contentType, // 1 text 2 img 3 voice 4 video
-            receive_id:data.info.receive_id, // 接收id
-            roomId:data.info.roomId,
-            isSingle:data.info.isSingle
+            index,
+            send_id, // 发送者的id
+            send_time,
+            content,
+            contentType, // 1 text 2 img 3 voice 4 video
+            receive_id, // 接收id
+            roomId:data.roomId,
+            isSingle,
+            uid
         })
         // console.log(saveData)
-        saveData.save(function (err,data) {
-            if(err) return err
+        saveData.save( async function (err,data) {
+            if(err) {
+                socket.emit('status','0')
+            }
             console.log(data)
             socket.emit('status','1')
             // socket.emit('messages',saveData)
-        })
+            const result = await Socket.findOne({user_id:receive_id[0]})
+            io.to(result._doc.socketId).emit('messages',data )
 
+        })
     })
 });
 
