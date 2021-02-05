@@ -1,11 +1,13 @@
 <template>
-    <div >
-      <send-box @getMessage="getMessage" ></send-box>
-      {{JSON.stringify(rooms)}}
-      <message v-for="(item,index) in List"
+    <div style="padding-bottom: 50px">
+      <send-box @getMessage="getMessage" style="z-index: 1000" ></send-box>
+      <message v-for="(item,index) in rooms[roomId]"
                :key="index"
-        :message="item.value"
+        :message="item.content"
         :isMe="item.isMe"
+        :sendTime = 'item.send_time'
+        :sendId = 'item.send_id'
+        :status = 'item.status'
       ></message>
     </div>
 </template>
@@ -34,15 +36,6 @@
     },
     mounted(){
 
-    },
-    watch:{
-      roomDetail:{
-        handler(data){
-          debugger
-          return this.$store.getters.getRooms
-        },
-        deep:true
-      }
     },
     computed:{
       ...mapState([

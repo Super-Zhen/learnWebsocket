@@ -27,13 +27,18 @@ const store =  new Vuex.Store({
       state.searchUserInfo = param
     },
     setRooms(state,param){
-      debugger
       const {roomId,info} = param
       // 获取rooms 中所有的房间号 然后找到对应的房间号，将相应的信息存放进去
       if(!state.rooms[roomId]) state.rooms[roomId]=[]
         let length = state.rooms[roomId].length
+        info.status = param.status
         state.rooms[roomId].push(info)
         state.rooms = JSON.parse(JSON.stringify(state.rooms))
+    },
+    setStatus(state,param){
+      const {roomId,uid,status} = param
+      let uidIndex = state.rooms[roomId].findIndex(item=>item.uid === uid)
+      state.rooms[roomId][uidIndex].status = status
     }
   },
 

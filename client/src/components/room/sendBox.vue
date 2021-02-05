@@ -55,8 +55,8 @@ export default {
           }
         }
         socket.emit('messages',data)
-        this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
-        this.$store.commit('setRooms',{...data})
+        // this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
+        this.$store.commit('setRooms',{...data,status:"loading"})
       }
     }
   }

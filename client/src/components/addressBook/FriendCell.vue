@@ -9,17 +9,19 @@
 <!--    <van-cell title="文本" />-->
 <!--    <van-cell title="文本" />-->
 <!--    <van-cell title="文本" />-->
-    <template v-for="item in lists">
-      <van-index-anchor :index="item.name" />
-      <template v-for="items in item.value">
-        <van-cell :title="items" />
-      </template>
-    </template>
+    {{lists}}
+<!--    <template v-for="item in lists">-->
+<!--      <van-index-anchor :index="item.name" />-->
+<!--      <template v-for="items in item.value">-->
+<!--        <van-cell :title="items" />-->
+<!--      </template>-->
+<!--    </template>-->
   </van-index-bar>
 </template>
 
 <script>
   import {Cell,IndexBar, IndexAnchor} from 'vant'
+  import {mapGetters} from 'vuex'
   // import { pinyin } from 'pinyin-pro'
     export default {
       name: "friendCell",
@@ -40,14 +42,17 @@
         }
       },
       computed:{
-        lists:()=>{
+        ...mapGetters([
+          'getUserInfo'
+        ]),
+        lists(){
           // 获取到数据之后先将数据进行拼音格式化 然后进行排序
+          debugger
           const array = "ABCDEFGHIGKLMNOPQRSTUVWXYZ".split('')
-          const res = this.$store.getters.getUserInfo.friendList
-          console.log(res)
-         return array.map((item,index)=>{
-            return {name:item,value:[item]}
-          })
+          const {friendList} = JSON.parse(JSON.stringify(this.getUserInfo))
+          // console.log(friendList)
+          array.map(item=>({name:item,value:[]}))
+         return friendList
 
         }
       }
