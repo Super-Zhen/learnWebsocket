@@ -4828,11 +4828,6 @@ pinkie@^2.0.0:
   resolved "https://registry.npm.taobao.org/pinkie/download/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
-pinyin-pro@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.npm.taobao.org/pinyin-pro/download/pinyin-pro-2.0.7.tgz#2b910c9330037c78de14941a4a6b86bf728d4e15"
-  integrity sha1-K5EMkzADfHjeFJQaSmuGv3KNThU=
-
 pkg-dir@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/pkg-dir/download/pkg-dir-2.0.0.tgz?cache=0&sync_timestamp=1602858957553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpkg-dir%2Fdownload%2Fpkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"

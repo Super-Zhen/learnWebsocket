@@ -2,6 +2,7 @@
 body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .fontW{font-weight: bold}
 .fontS14{font-size: 14px;}
+.fontS16{font-size: 16px;}
 .fontS18{font-size: 18px;}
 .fontS20{font-size: 20px;}
 .fontS22{font-size: 22px;}
@@ -10,6 +11,8 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .fontS28{font-size: 28px;}
 .fontS32{font-size: 32px;}
 .fontS34{font-size: 34px;}
+.fontS50{font-size: 50px;}
+.fontS70{font-size: 70px;}
 
 .mgr10{margin-right: 10px;}
 .mgr15{margin-right: 15px;}

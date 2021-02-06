@@ -8,11 +8,13 @@
 <script>
   import FriendCell from 'components/addressBook/FriendCell'
   import NavBar from 'components/addressBook/NavBar'
+  import SideNav from 'components/addressBook/sideNav'
     export default {
         name: "Friends",
       components:{
           FriendCell,
-        NavBar
+        NavBar,
+        SideNav
       }
     }
 </script>

@@ -76,6 +76,8 @@ module.exports = function(app){
                 console.log(err)
                 res.status(500)}
             console.log(data)
+            // data._doc.friendList = data._doc.friendList
+            let result = []
             res.send(data)
         })
 
