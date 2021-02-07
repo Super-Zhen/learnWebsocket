@@ -35,8 +35,11 @@
      return current
    }
  }
-const linkList =  new LinkList()
-const array = 'abcdefghijklmnopqrstuvwxyz'.split('')
-array.map(item=>linkList.add(item))
 
-console.log(linkList.getValue(2))
+ export default LinkList
+
+// const linkList =  new LinkList()
+// const array = 'abcdefghijklmnopqrstuvwxyz'.split('')
+// array.map(item=>linkList.add(item))
+//
+// console.log(linkList.getValue(2))

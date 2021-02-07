@@ -44,6 +44,8 @@ const server = app.listen(8000,data=>{
 const io = require('socket.io')(server,{
     cors: true
 })
+// io.set('heartbeat interval', 20);
+// io.set('heartbeat timeout', 25);
 // 当前在线用户
 let onlineUsers = {};
 // //当前在线人数

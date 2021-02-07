@@ -74,8 +74,9 @@ module.exports = function(app){
         User.findOne({username:payloads.username},{username:1,email:1,sign:1,gender:1,tel:1,friendList:1},(err,data)=>{
             if(err) {
                 console.log(err)
-                res.status(500)}
-            console.log(data)
+                res.status(500)
+            }
+            console.log('/user/getInfo',data)
             // data._doc.friendList = data._doc.friendList
             let result = []
             res.send(data)

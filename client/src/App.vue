@@ -20,6 +20,7 @@ export default {
   },
   async mounted() {
     console.log(this.$route.path)
+    debugger
     if (localStorage.getItem("token")) {
      await this.$store.dispatch('GetInfo')
     }else{

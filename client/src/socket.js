@@ -26,11 +26,11 @@ socket.on('connect', () => {
 });
 socket.on('connect_error',()=>{
   num++
-  console.log("连接服务器失败");
-  if(num>maxNum) socket.close()
-  if(!socket.connected && num>maxNum){
-    console.log('断开服务器连接')
-  }
+  console.log("连接服务器失败",Date.now());
+  // if(num>maxNum) socket.close()
+  // if(!socket.connected && num>maxNum){
+  //   console.log('断开服务器连接')
+  // }
 })
 socket.on('message',function (data) {
   console.log("data-node-message",data)
@@ -46,3 +46,5 @@ socket.on('status',function (data) {
   console.log("status-node",{...data,status:'success'})
 
 })
+
+

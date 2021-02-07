@@ -32,6 +32,7 @@
       methods:{
         showLetter(e){
           this.value= e
+          this.$emit('choose',e)
           if(this.timer) clearTimeout(this.timer)
           this.timer =setTimeout(()=>{
             this.value = ''
@@ -61,7 +62,7 @@
   }
   .showShadow{
     z-index: 9;
-    position: absolute;
+    position: fixed;
     top:0;
     left: 0;
     right: 0;

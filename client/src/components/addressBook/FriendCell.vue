@@ -1,77 +1,56 @@
 <template>
   <div>
-<!--    <side-nav></side-nav>-->
-    {{lists}}
-    <template v-for="item in list">
-
+    <side-nav @choose = 'choose'></side-nav>
+    <template v-for="(value, key, index) of lists">
+        <p style="line-height: 80px" :key="index" :ref="key">{{key}}</p>
+      <template v-for="(item) in value">
+        <p style="line-height: 80px">{{item.name}}</p>
+      </template>
     </template>
   </div>
-<!--  <van-index-bar>-->
-<!--    <template v-for="item in lists">-->
-<!--      <van-index-anchor :index="item.name" />-->
-<!--      <template v-for="items in item.value">-->
-<!--        <van-cell :title="items" />-->
-<!--      </template>-->
-<!--    </template>-->
-<!--  </van-index-bar>-->
 </template>
 
 <script>
-  // import {Cell,IndexBar, IndexAnchor} from 'vant'
 
   import {mapGetters} from 'vuex'
-  // import { pinyin } from 'pinyin-pro'
+  import pinyin  from 'pinyin'
   import SideNav from './sideNav'
     export default {
       name: "friendCell",
+      props:[
+        'list'
+      ],
       components:{
         SideNav
-          // [Cell.name]:Cell,
-          // [IndexAnchor.name]:IndexAnchor,
-          // [IndexBar.name]:IndexBar,
       },
-      data(){
-        return{
-          vvv:'你好',
-          list:[
-            {id: "600a87b05f38cf2c30417da1", name: "zcq"},
-            {id: "600a87b05f38cf2c30417da1", name: "你好"},
-            {id: "600a87b05f38cf2c30417da1", name: "哈哈哈"},
-            {id: "600a87b05f38cf2c30417da1", name: "中國"},
-            {id: "600a87b05f38cf2c30417da1", name: "張三"},
-            {id: "600a87b05f38cf2c30417da1", name: "里斯"},
-            {id: "600a87b05f38cf2c30417da1", name: "么雷尔"},
-            {id: "600a87b05f38cf2c30417da1", name: "社会主义"},
-            {id: "600a87b05f38cf2c30417da1", name: "大风车"},
-            {id: "600a87b05f38cf2c30417da1", name: "耳耳"},
-            {id: "600a87b05f38cf2c30417da1", name: "彷徨"},
-            {id: "600a87b05f38cf2c30417da1", name: "wewe"},
-            {id: "600a87b05f38cf2c30417da1", name: "rocket"},
-          ]
+      methods:{
+        getPinyin(val){
+          return pinyin(val,{
+            style: pinyin.STYLE_NORMAL
+          })
+        },
+        choose(data){
+          if(!this.$refs[data][0].offsetTop) return
+          window.scrollTo(0,this.$refs[data][0].offsetTop)
         }
       },
-      mounted(){
-        // console.log( pinyin(this.vvv, { pattern: 'initial' }))
-      },
       computed:{
-        ...mapGetters([
-          'getUserInfo'
-        ]),
+
         lists(){
           // 获取到数据之后先将数据进行拼音格式化 然后进行排序
-          debugger
-          this.list.forEach(item=>{
-            // let initial = pinyin(item.name, { pattern: 'initial' })
-            let initial = ''
-            item.initial = initial
-          })
-          return this.list
-
-         //  const array = "ABCDEFGHIGKLMNPQRSTUVWXYZ#".split('')
-         //  const {friendList} = JSON.parse(JSON.stringify(this.getUserInfo))
-         //  console.log(friendList)
-         //  const aa = array.map(item=>({name:item,value:['123123123','2222222']}))
-         // return aa
+          const list = JSON.parse(JSON.stringify(this.list))
+          // 获取名字的拼音
+          list.forEach(item=>item.initial = this.getPinyin(item.name).join('').toUpperCase())
+           // 将名字排序
+          let result = list.sort((a,b)=>a.initial.localeCompare(b.initial))
+          // 将名字首字母去重
+          const letters = Array.from(new Set(list.map(item=>item.initial.charAt())))
+          let obj = {}
+          for (let item of letters){
+            obj[item]= []
+          }
+          result.forEach(item=>obj[item.initial.charAt(0)].push(item))
+          return obj
 
         }
       }
