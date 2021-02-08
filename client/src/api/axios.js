@@ -6,7 +6,7 @@ const baseUlr = server.server
 
 const instance = axios.create()
 // instance.defaults.baseURL = baseUlr
-instance.defaults.timeout = 30000
+instance.defaults.timeout = 60000
 
 instance.interceptors.request.use(config=>{
   if(config.url && config.url.charAt(0) === '/'){

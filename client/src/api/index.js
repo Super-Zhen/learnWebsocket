@@ -15,7 +15,9 @@ const serverApi = {
   // 添加好友
   addFriend: data=> axios.post('/api/find/addFriend',data),
   // 通过房间号查询接收者的user_id
-  findRoomUser: data => axios.get('/api/find/roomUser',{params:data})
+  findRoomUser: data => axios.get('/api/find/roomUser',{params:data}),
+   // 通过当前用户查询所在的所有房间
+  getHasMsgRoom: data => axios.get('./api/find/msgRoom',{params:data})
   }
 
 export default serverApi

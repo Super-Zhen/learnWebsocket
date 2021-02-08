@@ -52,13 +52,13 @@ let onlineUsers = {};
 let onlineCount = 0;
 io.on('connection', socket => {
     console.log('connected');
-    setTimeout(()=>{
-        socket.broadcast.emit('message','user connected');
-        },2000)
+    // setTimeout(()=>{
+    //     socket.broadcast.emit('message','user connected');
+    //     },2000)
     //监听disconnect事件
     socket.on('disconnect', async () => {
         console.log(socket.id)
-        Online.findOneAndUpdate({socketId:socket.id},{status:'2'})
+        await Online.findOneAndUpdate({socketId:socket.id},{status:2})
         console.log('disconnect')
     })
 
@@ -112,18 +112,20 @@ io.on('connection', socket => {
         // io.to(data.info.roomId).emit('messages',{'qwe':'大家好'})
         console.log(data)
         // io.to(data.id).emit('messages',{'qwe':'21312'})
-        const {send_id,send_time,content,contentType,receive_id,isSingle,uid,index,isMe} = data.info
+        const {send_id,send_time,content,contentType,receive_id,isSingle,uid,index,isMe,username} = data.info
         const saveData =await new Message({
-            index,
-            send_id, // 发送者的id
-            send_time,
-            content,
-            contentType, // 1 text 2 img 3 voice 4 video
-            receive_id, // 接收id
+            ...data.info,
+            // index,
+            // send_id, // 发送者的id
+            // send_time,
+            // content,
+            // contentType, // 1 text 2 img 3 voice 4 video
+            // receive_id, // 接收id
             roomId:data.roomId,
-            isSingle,
-            uid,
-            isMe
+            // isSingle,
+            // uid,
+            // isMe,
+            // username
         })
         // console.log(saveData)
         saveData.save( async function (err,data) {
@@ -138,6 +140,7 @@ io.on('connection', socket => {
             io.to(result._doc.socketId).emit('messages',{
                 roomId:data.roomId,
                 info:{
+                    username:data.username,
                     content: data.content,
                     contentType: data.contentType,
                     index: data.index,

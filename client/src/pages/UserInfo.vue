@@ -49,7 +49,7 @@
           // 点击发送消息
           this.$router.push({
               path:'/room',
-            query:{
+              query:{
                 roomId:this.$store.getters.searchUserInfo.roomId,
                 isSingle:1
             }
@@ -62,25 +62,30 @@
           const {_id} = this.$store.getters.getUserInfo
           const data = {user_id:_id,friend_id:id}
           let res = await this.$store.dispatch('AddFriend',data)
+          debugger
+          let message= ''
           if(res.codeFlag===1){
-            Dialog.confirm({
-              title: '标题',
-              message: '弹窗内容',
-            })
-              .then(() => {
-                this.$router.push({
-                  path:'/room',
-                  query:{
-                    room:res.roomId,
-                    isSingle:1,
-
-                  }
-                })
-              })
-              .catch(() => {
-                // on cancel
-              });
+            message = '已经是好友'
+          }else{
+            message = '添加好友成功，现在可以聊天了'
           }
+          Dialog.confirm({
+            title: '标题',
+            message: message,
+          })
+            .then(() => {
+              this.$router.push({
+                path:'/room',
+                query:{
+                  roomId:res.roomId,
+                  isSingle:1,
+
+                }
+              })
+            })
+            .catch(() => {
+              // on cancel
+            });
         }
       }
     }

@@ -22,6 +22,7 @@ export default {
       this.index = 0
       this.query = this.util.GetRequest()
       this.id = this.$store.getters.getUserInfo._id
+      this.username = this.$store.getters.getUserInfo.username
       // 通过房间号查询接收者的user_id
       this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
       console.log('useArray',this.userArray)
@@ -51,7 +52,8 @@ export default {
             receive_id:this.userArray,
             uid:uuidv4(),
             isMe:true,
-            index:this.index++
+            index:this.index++,
+            username:this.username
           }
         }
         socket.emit('messages',data)

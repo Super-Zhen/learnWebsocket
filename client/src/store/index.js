@@ -36,6 +36,7 @@ const store =  new Vuex.Store({
         state.rooms = JSON.parse(JSON.stringify(state.rooms))
     },
     setStatus(state,param){
+      // 设置消息的状态
       const {roomId,uid,status} = param
       let uidIndex = state.rooms[roomId].findIndex(item=>item.uid === uid)
       state.rooms[roomId][uidIndex].status = status
@@ -86,6 +87,10 @@ const store =  new Vuex.Store({
     async FindRoomUser({},data){
       const result = await serverApi.findRoomUser(data)
       return result
+    },
+    // 通过id 获取有消息的房间
+    async getHasMsgRoom({},data){
+      // const
     }
 
   },

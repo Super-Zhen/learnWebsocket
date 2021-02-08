@@ -64,7 +64,7 @@ module.exports = function (app) {
                     await changeFriendList(friend_id,user_id)
                     await changeFriendList(user_id,friend_id)
                     let result = await User.findById(user_id,{userpwd:0})
-                    res.send(Object.assign(result,roomId,{codeFlag: 2}))
+                    res.send(Object.assign(result._doc,{roomId,codeFlag: 2}))
                 })
             }
         }catch(e)

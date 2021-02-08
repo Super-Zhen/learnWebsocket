@@ -36,7 +36,7 @@ export default {
           }
         return theRequest;
       },
-      // 获取设备信息
+      // 设置时间
 
     }
   }
