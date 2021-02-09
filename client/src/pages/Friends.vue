@@ -1,13 +1,13 @@
 <template>
     <div>
-      <nav-bar></nav-bar>
+      <nav-bar title="Friends"></nav-bar>
       <friend-cell :list="userInfo.friendList"></friend-cell>
     </div>
 </template>
 
 <script>
   import FriendCell from 'components/addressBook/FriendCell'
-  import NavBar from 'components/addressBook/NavBar'
+  import NavBar from 'components/NavBar'
   import SideNav from 'components/addressBook/sideNav'
   import {mapState} from 'vuex'
     export default {

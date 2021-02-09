@@ -43,7 +43,9 @@ module.exports = function (app) {
         // 查询是否已经是好友
         // 如果已经是好友，就直接返回
         // 如果不是好友则添加好友 同时更新用户friendList 数组
+
         try {
+
             const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}],relations:1})
             if(result ){ // 如果查询到有数据
                 // 已经是好友
@@ -53,8 +55,8 @@ module.exports = function (app) {
                 // 添加好友得操作
                 const roomId = uuid.v1()
                 const RelationshipData = new Relationship({
-                    user_id,
-                    friend_id,
+                    user_id:user_id.localeCompare(friend_id)<0?user_id:friend_id,
+                    friend_id:user_id.localeCompare(friend_id)>0?friend_id:user_id,
                     relations:1,
                     roomId
                 })
@@ -72,7 +74,7 @@ module.exports = function (app) {
             res.status(500).json({msg:'服务器错误'})
         }
     })
-    // 通过房间号 已经当前的用户
+    // 通过当前用户 查询房间号
 }
  async function changeFriendList(user_id,friend_id,callback) {
     const result =await User.findById(friend_id,{username:1,_id:0})

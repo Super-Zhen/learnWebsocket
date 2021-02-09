@@ -3,11 +3,11 @@
         <div class="flexAC infoColor">
             <img src="../../assets/img/20210113105735.jpg" alt="" class="headImg">
           <div class="mgl10 height50 flexDc flexJA ">
-              <p class="fontS16">{{value.username}}</p>
-              <p class="fontS15">{{value.content}}...</p>
+              <p class="fontS16">{{value.name}}</p>
+              <p class="fontS15" v-if="value.content">{{value.content.substring(0,10)}}...</p>
           </div>
         </div>
-        <div class="height50 fontS1 time">
+        <div class="height50 fontS1 time" v-if="value.send_time">
           {{value.send_time}}
         </div>
     </div>
@@ -25,7 +25,7 @@
 <style scoped>
 .msgBox{
   height: 58px;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid #eeeeee;
 }
   .headImg{
     width: 50px;

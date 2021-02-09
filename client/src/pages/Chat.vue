@@ -1,7 +1,7 @@
 <template>
     <div>
       <template v-for="(value,key,index) in roomList">
-        <cell :value="getRoomMsgLast(key)"></cell>
+        <cell :value="getRoomMsgLast(key)" @click.native="toRoom(value,key)"></cell>
       </template>
 
     </div>
@@ -27,6 +27,15 @@
         }
       },
       methods:{
+          toRoom(param,id){
+            this.$router.push({
+              path:'/room',
+              query:{
+                roomId:id,
+                isSingle:param[0].isSingle
+              }
+            })
+          },
           getRoomMsgLast(roomId){
             let roomData = this.roomList[roomId]
             return roomData[roomData.length-1]

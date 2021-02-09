@@ -17,7 +17,9 @@ const serverApi = {
   // 通过房间号查询接收者的user_id
   findRoomUser: data => axios.get('/api/find/roomUser',{params:data}),
    // 通过当前用户查询所在的所有房间
-  getHasMsgRoom: data => axios.get('./api/find/msgRoom',{params:data})
+  getHasMsgRoom: data => axios.get('/api/find/msgRoom',{params:data}),
+  // 点击朋友列表中的某个人的时候获取房间id
+  findRoomId: data => axios.get('/api/find/roomId',{params:data})
   }
 
 export default serverApi

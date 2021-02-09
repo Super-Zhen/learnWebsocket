@@ -9,8 +9,8 @@ const store =  new Vuex.Store({
     userInfo:JSON.parse(localStorage.getItem('userInfo'))?JSON.parse(localStorage.getItem('userInfo')):{},
     friendList:[], // 好友列表
     searchUserInfo:{}, // 查找后的好友信息
-    rooms:{} // 将所有的房间号存放到这儿，每个房间号中包含信息以及信息状态
-
+    rooms:{}, // 将所有的房间号存放到这儿，每个房间号中包含信息以及信息状态
+    sendMsgName:''
   },
 
   mutations: {
@@ -40,6 +40,10 @@ const store =  new Vuex.Store({
       const {roomId,uid,status} = param
       let uidIndex = state.rooms[roomId].findIndex(item=>item.uid === uid)
       state.rooms[roomId][uidIndex].status = status
+    },
+    setSendMsgName(state,param){
+      const {name} = param
+      state.sendMsgName = name
     }
   },
 
@@ -86,6 +90,10 @@ const store =  new Vuex.Store({
     },
     async FindRoomUser({},data){
       const result = await serverApi.findRoomUser(data)
+      return result
+    },
+    async FindRoomId({},data){
+      const result = await serverApi.findRoomId(data)
       return result
     },
     // 通过id 获取有消息的房间

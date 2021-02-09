@@ -10,6 +10,7 @@
 <script>
   import {Field,Button} from 'vant'
   import {v4 as uuidv4} from 'uuid'
+  import {mapState} from 'vuex'
   import {socket} from "../../../socket.config";
 
 export default {
@@ -18,13 +19,23 @@ export default {
         [Field.name]:Field,
         [Button.name]:Button,
     },
+    computed:{
+      ...mapState([
+        "sendMsgName"
+      ])
+    },
     async created(){
       this.index = 0
-      this.query = this.util.GetRequest()
+      this.query = this.util.GetRequest() // 房间号和私聊标志
       this.id = this.$store.getters.getUserInfo._id
-      this.username = this.$store.getters.getUserInfo.username
       // 通过房间号查询接收者的user_id
+      // 通过好友列表查询接收者的user_id
       this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
+      if(this.userArray.length===1 && !this.sendMsgName){
+        this.name = this.$store.getters.getUserInfo.friendList.filter(item=>item.id== this.userArray[0])[0].name
+      }else if(this.userArray.length===1 && this.sendMsgName){
+        this.name = this.sendMsgName
+      }
       console.log('useArray',this.userArray)
     },
     data(){
@@ -53,7 +64,7 @@ export default {
             uid:uuidv4(),
             isMe:true,
             index:this.index++,
-            username:this.username
+            name:this.name
           }
         }
         socket.emit('messages',data)

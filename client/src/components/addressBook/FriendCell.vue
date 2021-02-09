@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div style="padding-top: 60px">
     <side-nav @choose = 'choose'></side-nav>
     <template v-for="(value, key, index) of lists">
-        <p style="line-height: 80px" :key="index" :ref="key">{{key}}</p>
+        <p class="bgColor lineHeigh pdl20" :key="index" :ref="key">{{key}}</p>
       <template v-for="(item) in value">
-        <p style="line-height: 80px">{{item.name}}</p>
+        <cell :value="item" @click.native="toRoom(item)"></cell>
       </template>
     </template>
   </div>
@@ -15,13 +15,15 @@
   import {mapGetters} from 'vuex'
   import pinyin  from 'pinyin'
   import SideNav from './sideNav'
+  import Cell from 'components/chat/cell'
     export default {
       name: "friendCell",
       props:[
         'list'
       ],
       components:{
-        SideNav
+        SideNav,
+        Cell
       },
       methods:{
         getPinyin(val){
@@ -32,6 +34,28 @@
         choose(data){
           if(!this.$refs[data][0].offsetTop) return
           window.scrollTo(0,this.$refs[data][0].offsetTop)
+        },
+        async toRoom(param){
+          let user = this.$store.getters.getUserInfo._id
+          let friend = param.id
+          let res =''
+          try {
+            if(user.localeCompare(friend)<0){
+              res = await this.$store.dispatch('FindRoomId',{user_id:user,friend_id:friend})
+            }else{
+              res = await this.$store.dispatch('FindRoomId',{friend_id:user,user_id:friend})
+            }
+            this.$router.push({
+              path:'/room',
+              query:{
+                roomId:res.roomId,
+                isSingle:1
+              }
+            })
+          }catch (e) {
+
+          }
+
         }
       },
       computed:{
@@ -58,5 +82,7 @@
 </script>
 
 <style scoped>
-
+.bgColor{
+  background-color: #F3F3F7;
+}
 </style>

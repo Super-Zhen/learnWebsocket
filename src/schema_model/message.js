@@ -15,7 +15,7 @@ const Message = new Schema({
         type:Boolean,
         default:false
     },
-    username:{type:String},
+    name:{type:String},
     uid:String,
 })
 const message = mongoose.model('Message',Message)

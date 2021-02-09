@@ -111,8 +111,7 @@ io.on('connection', socket => {
         // socket.join(data.info.roomId)
         // io.to(data.info.roomId).emit('messages',{'qwe':'大家好'})
         console.log(data)
-        // io.to(data.id).emit('messages',{'qwe':'21312'})
-        const {send_id,send_time,content,contentType,receive_id,isSingle,uid,index,isMe,username} = data.info
+        const {receive_id} = data.info
         const saveData =await new Message({
             ...data.info,
             // index,
@@ -136,11 +135,11 @@ io.on('connection', socket => {
             // 保存成功之后将房间号，uid 这条消息的标志位
             socket.emit('status',{uid:data.uid,roomId: data.roomId})
             // socket.emit('messages',saveData)
-            const result = await Socket.findOne({user_id:receive_id[0]})
+            const result = await Socket.findOne({user_id:receive_id[0]}).exec()
             io.to(result._doc.socketId).emit('messages',{
                 roomId:data.roomId,
                 info:{
-                    username:data.username,
+                    name:data.name,
                     content: data.content,
                     contentType: data.contentType,
                     index: data.index,
