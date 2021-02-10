@@ -28,6 +28,10 @@
       },
       methods:{
           toRoom(param,id){
+            debugger
+            if(param[0].isSingle=='1'){
+              this.$store.commit('receiveUserInfo',{name:param[0].name,id:param[0].receive_id[0]})
+            }
             this.$router.push({
               path:'/room',
               query:{

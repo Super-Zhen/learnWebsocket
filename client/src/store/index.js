@@ -10,7 +10,8 @@ const store =  new Vuex.Store({
     friendList:[], // 好友列表
     searchUserInfo:{}, // 查找后的好友信息
     rooms:{}, // 将所有的房间号存放到这儿，每个房间号中包含信息以及信息状态
-    sendMsgName:''
+    sendMsgName:'',
+    receiveUserInfo:{}
   },
 
   mutations: {
@@ -44,6 +45,9 @@ const store =  new Vuex.Store({
     setSendMsgName(state,param){
       const {name} = param
       state.sendMsgName = name
+    },
+    setReceiveUserInfo(state,param){
+      state.receiveUserInfo = {...state.receiveUserInfo,...param}
     }
   },
 

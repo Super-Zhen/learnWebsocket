@@ -147,7 +147,7 @@ io.on('connection', socket => {
                     isSingle: data.isSingle,
                     receive_id: data.receive_id[0],
                     send_id: data.send_id,
-                    send_time: data.send_time,
+                    send_time: new Date(data.send_time).getTime(),
                     uid: data.uid
                 }
             })

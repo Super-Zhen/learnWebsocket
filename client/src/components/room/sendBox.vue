@@ -28,15 +28,19 @@ export default {
       this.index = 0
       this.query = this.util.GetRequest() // 房间号和私聊标志
       this.id = this.$store.getters.getUserInfo._id
+      this.receiveInfo = this.$store.getters.receiveUserInfo
       // 通过房间号查询接收者的user_id
       // 通过好友列表查询接收者的user_id
-      this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
-      if(this.userArray.length===1 && !this.sendMsgName){
-        this.name = this.$store.getters.getUserInfo.friendList.filter(item=>item.id== this.userArray[0])[0].name
-      }else if(this.userArray.length===1 && this.sendMsgName){
-        this.name = this.sendMsgName
+      if(this.receiveInfo){
+        this.name = this.receiveInfo.name
+      }else{
+        this.userArray =await this.$store.dispatch('FindRoomUser',{...this.query,id:this.id})
+        if(this.userArray.length===1 && !this.sendMsgName){
+          this.name = this.$store.getters.getUserInfo.friendList.filter(item=>item.id== this.userArray[0])[0].name
+        }else if(this.userArray.length===1 && this.sendMsgName){
+          this.name = this.sendMsgName
+        }
       }
-      console.log('useArray',this.userArray)
     },
     data(){
         return{
