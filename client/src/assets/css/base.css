@@ -1,56 +1,56 @@
 
 body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .fontW{font-weight: bold}
-.fontS14{font-size: 14px;}
-.fontS15{font-size: 15px;}
-.fontS16{font-size: 16px;}
-.fontS18{font-size: 18px;}
-.fontS20{font-size: 20px;}
-.fontS22{font-size: 22px;}
-.fontS24{font-size: 24px;}
-.fontS26{font-size: 26px;}
-.fontS28{font-size: 28px;}
-.fontS32{font-size: 32px;}
-.fontS34{font-size: 34px;}
-.fontS50{font-size: 50px;}
-.fontS70{font-size: 70px;}
+.fontS14{font-size: 14px !important ;}
+.fontS15{font-size: 15px !important;}
+.fontS16{font-size: 16px !important;}
+.fontS18{font-size: 18px !important;}
+.fontS20{font-size: 20px !important;}
+.fontS22{font-size: 22px !important;}
+.fontS24{font-size: 24px !important;}
+.fontS26{font-size: 26px !important;}
+.fontS28{font-size: 28px !important;}
+.fontS32{font-size: 32px !important;}
+.fontS34{font-size: 34px !important;}
+.fontS50{font-size: 50px !important;}
+.fontS70{font-size: 70px !important;}
 
-.mgr10{margin-right: 10px;}
-.mgr15{margin-right: 15px;}
-.mgr20{margin-right: 20px;}
+.mgr10{margin-right: 10px !important;}
+.mgr15{margin-right: 15px !important;}
+.mgr20{margin-right: 20px !important;}
 
-.mgt10{margin-top: 10px}
-.mgt15{margin-top: 15px}
-.mgt20{margin-top: 20px}
-.mgt25{margin-top: 25px}
-.mgt50{margin-top: 50px}
-.mgt100{margin-top: 100px}
+.mgt10{margin-top: 10px !important}
+.mgt15{margin-top: 15px !important}
+.mgt20{margin-top: 20px !important}
+.mgt25{margin-top: 25px !important}
+.mgt50{margin-top: 50px !important}
+.mgt100{margin-top: 100px !important}
 
-.mgb5{margin-bottom: 5px}
-.mgb10{margin-bottom: 10px}
-.mgb15{margin-bottom: 15px}
-.mgb20{margin-bottom: 20px}
-.mgb50{margin-bottom: 50px}
-.mgb100{margin-bottom: 100px}
+.mgb5{margin-bottom: 5px !important}
+.mgb10{margin-bottom: 10px !important}
+.mgb15{margin-bottom: 15px !important}
+.mgb20{margin-bottom: 20px !important}
+.mgb50{margin-bottom: 50px !important}
+.mgb100{margin-bottom: 100px !important}
 
-.mgl10{margin-left: 10px}
-.mgl15{margin-left: 15px}
-.mgl20{margin-left: 20px}
+.mgl10{margin-left: 10px !important}
+.mgl15{margin-left: 15px !important}
+.mgl20{margin-left: 20px !important}
 
-.pad10{padding: 10px}
-.pad1020{padding: 10px 20px}
+.pad10{padding: 10px !important}
+.pad1020{padding: 10px 20px !important}
 
-.pdl10{padding-left: 10px}
-.pdl20{padding-left: 20px}
+.pdl10{padding-left: 10px !important}
+.pdl20{padding-left: 20px !important}
 
-.pdr10{padding-right: 10px}
-.pdr20{padding-right: 20px}
+.pdr10{padding-right: 10px !important}
+.pdr20{padding-right: 20px !important}
 
 .wid30{width: 30%}
 .height33{height: 33%}
-.wid50{width: 50px}
-.height50{height: 50px}
-.lineHeigh{line-height: 36px}
+.wid50{width: 50px !important}
+.height50{height: 50px !important}
+.lineHeigh{line-height: 36px !important}
 .flex{display: flex}
 .flexAC{display: flex;align-items: center;}
 .flexAE{display: flex;align-items: end}
@@ -61,7 +61,7 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .flexWrap{display: flex;flex-wrap: wrap}
 .flexDc{display: flex;flex-direction: column}
 
-.fontC999{color: #999999}
-.fontCff347e{color: #ff347e}
+.fontC999{color: #999999 !important;}
+.fontCff347e{color: #ff347e !important;}
 .textAC{text-align: center}
 .overfH{overflow: hidden}

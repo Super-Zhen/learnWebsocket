@@ -82,8 +82,26 @@
               // 需要将用户信息进行存储到socket 文档中通过
               socket.emit('loginAfter',{user_id:this.$store.getters.getUserInfo._id})
               this.$router.replace('/')
-            }catch (e) {
-              console.log(e.response)
+            }catch (error) {
+              if(error.response.status=== 401){
+                Dialog.alert({
+                  title: '错误提示',
+                  message: error.response.data.msg,
+                })
+                  .then(() => {
+                    this.username=''
+                    this.password =''
+                  })
+              }else{
+                Dialog.alert({
+                  title: '错误提示',
+                  message: error,
+                })
+                  .then(() => {
+                    this.username=''
+                    this.password =''
+                  })
+              }
             }
               this.status = false
 

@@ -93,7 +93,6 @@
             localStorage.setItem('isLogin',res.isLogin)
             this.$router.replace(res.path)
           }catch (e) {
-            debugger
             console.log(e.response)
           }
           this.status = false

@@ -1,5 +1,6 @@
 import {socket} from '../socket.config'
 import store from './store/index'
+import {addData} from "./indexedDB";
 
 var num = 0
 const maxNum = 10
@@ -39,6 +40,7 @@ socket.on('message',function (data) {
 socket.on('messages',function (data) {
   console.log("data-node",data)
   store.commit('setRooms',data)
+  addData({objStoreName:'messages', version:2,data})
 })
 // 发送消息的状态更新
 socket.on('status',function (data) {

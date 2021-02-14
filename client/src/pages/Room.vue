@@ -33,6 +33,7 @@
 
     created(){
       this.roomId = this.util.GetRequest().roomId
+      // 当页面刷新得时候获取历史记录
     },
     mounted(){
 

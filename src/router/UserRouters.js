@@ -22,6 +22,8 @@ module.exports = function(app){
                         res.send({token,username,isLogin:true,id:data._id})
                     })
                 }
+            }else{
+                res.status(401 ).send({msg:'用户BU存在',flag:false})
             }
         })
         // userData.save((err,data)=>{

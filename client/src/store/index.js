@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import serverApi from '../api/index'
 Vue.use(Vuex)
+import {changeStatus,addData} from '../indexedDB'
 
 const store =  new Vuex.Store({
 
@@ -35,12 +36,23 @@ const store =  new Vuex.Store({
         info.status = param.status
         state.rooms[roomId].push(info)
         state.rooms = JSON.parse(JSON.stringify(state.rooms))
+
     },
     setStatus(state,param){
       // 设置消息的状态
       const {roomId,uid,status} = param
       let uidIndex = state.rooms[roomId].findIndex(item=>item.uid === uid)
       state.rooms[roomId][uidIndex].status = status
+      changeStatus({objStoreName:'messages', version:2,uid})
+    },
+    setRoomHistory(state,param){
+      const {roomId,infoArray} = param
+      // 获取rooms 中所有的房间号 然后找到对应的房间号，将相应的信息存放进去
+      if(!state.rooms[roomId]) state.rooms[roomId]=[]
+      let length = state.rooms[roomId].length
+      // info.status = param.status
+      state.rooms[roomId].push(...infoArray)
+      state.rooms = JSON.parse(JSON.stringify(state.rooms))
     },
     setSendMsgName(state,param){
       const {name} = param

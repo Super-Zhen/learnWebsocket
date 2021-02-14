@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'normalize.css/normalize.css'
-import '@/assets/css/base.css'
+// import '@/assets/css/base.css'
 import store from './store/index'
 import './rem.js'
-import {socket} from '../socket.config'
 import './socket'
+import './indexedDB'
 import util from './util/index'
 import {getAES, getDAes} from "../crypto";
 

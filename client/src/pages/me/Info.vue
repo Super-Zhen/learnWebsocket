@@ -43,7 +43,6 @@
           [Button.name]:Button,
       },
       mounted(){
-        debugger
         this.info = this.$store.getters.getUserInfo
       },
       methods:{

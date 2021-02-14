@@ -58,11 +58,9 @@
         async addFriend(id){
         //  参数为查询用户的id  加上自身的id 传递给后端
           const _this = this
-          debugger
           const {_id} = this.$store.getters.getUserInfo //
           const data = {user_id:_id.localeCompare(id)<0?_id:id,friend_id:_id.localeCompare(id)<0?id:_id}
           let res = await this.$store.dispatch('AddFriend',data)
-          debugger
           let message= ''
           if(res.codeFlag===1){
             message = '已经是好友'

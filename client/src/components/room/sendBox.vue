@@ -12,7 +12,7 @@
   import {v4 as uuidv4} from 'uuid'
   import {mapState} from 'vuex'
   import {socket} from "../../../socket.config";
-
+  import { addData,showMessage} from '../../indexedDB'
 export default {
     name: "sendBox",
     components:{
@@ -48,10 +48,20 @@ export default {
           messageCopy:''
         }
     },
-  mounted(){
+  async mounted(){
+    // 读取数据
+    debugger
+    await showMessage({ objStoreName:'messages', version:2,cb:this.getMessage,roomId:this.query.roomId})
 
   },
     methods:{
+      // 从前端数据库中获取数据然后添加到store中
+      getMessage(data){
+        const roomId = data[0].roomId
+        let infoArray = data.map(item=>item.info).sort((a,b)=>a.send_time-b.send_time)
+        console.log(infoArray)
+        this.$store.commit('setRoomHistory',{roomId,infoArray})
+      },
       sendMsg(){
         if(!this.message) return
         this.messageCopy = this.message
@@ -74,6 +84,11 @@ export default {
         socket.emit('messages',data)
         // this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
         this.$store.commit('setRooms',{...data,status:"loading"})
+
+
+        // let students = []
+        // students.push(data);
+        addData({ objStoreName:'messages', data});//这里填入三个参数数据库名，表名，json数据
       }
     }
   }

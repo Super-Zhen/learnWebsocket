@@ -36,7 +36,6 @@
           window.scrollTo(0,this.$refs[data][0].offsetTop)
         },
         async toRoom(param){
-          debugger
           let user = this.$store.getters.getUserInfo._id
           let friend = param.id
           let res =''

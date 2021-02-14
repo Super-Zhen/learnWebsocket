@@ -23,12 +23,23 @@ instance.interceptors.response.use(response=>{
     }
     return Promise.reject(response)
 },error => {
-  Dialog.alert({
-    title: '错误提示',
-    message: error,
-  })
-    .then(() => {
-    })
+  console.log(error.response)
+  // if(error.response.status=== 401){
+  //   Dialog.alert({
+  //     title: '错误提示',
+  //     message: error.response.data.msg,
+  //   })
+  //     .then(() => {
+  //     })
+  // }else{
+  //   Dialog.alert({
+  //     title: '错误提示',
+  //     message: error,
+  //   })
+  //     .then(() => {
+  //     })
+  // }
+
   return Promise.reject(error)
 })
 
