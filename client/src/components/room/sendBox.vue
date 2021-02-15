@@ -50,9 +50,11 @@ export default {
     },
   async mounted(){
     // 读取数据
-    debugger
     await showMessage({ objStoreName:'messages', version:2,cb:this.getMessage,roomId:this.query.roomId})
 
+  },
+  beforeDestroy(){
+    console.log(1111)
   },
     methods:{
       // 从前端数据库中获取数据然后添加到store中

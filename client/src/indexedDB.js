@@ -23,6 +23,13 @@ window.onload = function () {
       objStore.createIndex('uid', 'info.uid', {unique: false});
       console.log('索引表创建成功');
     }
+    if (!db.objectStoreNames.contains("rooms")) {
+      var objStore = db.createObjectStore("rooms", {keyPath: 'roomId', autoIncrement: false})
+      console.log("对象仓库创建成功" + objStore);
+      //在对象仓库下面创建索引表
+      objStore.createIndex('roomIdIndex', 'roomId', {unique: true});
+      console.log('索引表创建成功');
+    }
 
   }
 
