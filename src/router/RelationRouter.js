@@ -54,9 +54,9 @@ module.exports = function (app) {
             }else{ // 用户存在不是好友
                 // 添加好友得操作
                 const roomId = uuid.v1()
+                let id = user_id.localeCompare(friend_id)<0?{user_id,friend_id}:{user_id:friend_id,friend_id:user_id}
                 const RelationshipData = new Relationship({
-                    user_id:user_id.localeCompare(friend_id)<0?user_id:friend_id,
-                    friend_id:user_id.localeCompare(friend_id)>0?friend_id:user_id,
+                    ...id,
                     relations:1,
                     roomId
                 })

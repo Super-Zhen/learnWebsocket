@@ -1,7 +1,6 @@
 let dbName = 'learnWebsocket';//数据库名
 let version = 2; //版本号
 window.onload = function () {
-
   const request = window.indexedDB.open(dbName, version);
   request.onerror = function (event) {
     console.log('数据库打开报错');
@@ -27,7 +26,7 @@ window.onload = function () {
       var objStore = db.createObjectStore("rooms", {keyPath: 'roomId', autoIncrement: false})
       console.log("对象仓库创建成功" + objStore);
       //在对象仓库下面创建索引表
-      objStore.createIndex('roomIdIndex', 'roomId', {unique: true});
+      objStore.createIndex('roomid', 'roomId', {unique: true});
       console.log('索引表创建成功');
     }
 
@@ -61,7 +60,7 @@ function addData({dbName='learnWebsocket', objStoreName='', data=''}) {
   }
 }
 // 从数据库获取数据
-function showMessage({dbName='learnWebsocket', objStoreName='', version='',cb='',roomId=''}){
+function showMessage({dbName='learnWebsocket', objStoreName='',cb='',roomId=''}){
   let openRequest = window.indexedDB.open(dbName, version);
   openRequest.onerror = function () {
     alert("打开数据库失败！！！");
@@ -71,7 +70,7 @@ function showMessage({dbName='learnWebsocket', objStoreName='', version='',cb=''
     let db = ev.target.result;
     let count = 0
     //创建事务
-    let transaction = db.transaction(objStoreName, 'readwrite');
+    let transaction = db.transaction(objStoreName);
     //获取对象仓库
     let objStore = transaction.objectStore(objStoreName);
     //通过游标的方式遍历数据
@@ -93,19 +92,18 @@ function showMessage({dbName='learnWebsocket', objStoreName='', version='',cb=''
     var index = objStore.index("roomIdIndex")
     var range = IDBKeyRange.only(roomId);
     let cursorRequest = index.openCursor(range,'prev');
+    let result = []
     cursorRequest.onsuccess = function (event) {
       count++
       let cursor = event.target.result;
-      if (cursor) {
-        cb([cursor.value]);
-        count <20 &&cursor.continue();
+      if (!cursor && cb) {
+        cb(result);
+
       } else {
-        flag = false
-        console.log('没有更多数据了！');
+        result.push(cursor.value)
+        count <20 &&cursor.continue();
       }
-        if(flag &&count<=20 ){
-          // cb(result)
-        }
+
       // cb(result)
     }
     // index.get("0f7213d0-69df-11eb-bb21-97023e5ce2d8").onsuccess = function(e){//通过索引回调获得“小B”的信息对象
@@ -133,9 +131,6 @@ function changeStatus({dbName='learnWebsocket', objStoreName='', version='',uid=
     let transaction = db.transaction(objStoreName, 'readwrite');
     //获取对象仓库
     let objStore = transaction.objectStore(objStoreName);
-    // var index = objStore.index("uid")
-    // var range = IDBKeyRange.only(uid);
-    // let cursorRequest = index.openCursor(range,'next');
     let result = objStore.get(uid)
     result.onsuccess = function (event) {
       let cursor = event.target.result;
@@ -148,8 +143,55 @@ function changeStatus({dbName='learnWebsocket', objStoreName='', version='',uid=
     }
   }
 }
+// 更改房间进入时间
+function changeTime({dbName='learnWebsocket', objStoreName='',roomId=''}){
+  let openRequest = window.indexedDB.open(dbName, version);
+  openRequest.onerror= function () {
+    alert("打开数据库失败！！！");
+  }
+  openRequest.onsuccess = function (ev) {
+    //获取数据库
+    let db = ev.target.result;
+    //创建事务
+    let transaction = db.transaction(objStoreName, 'readwrite');
+    //获取对象仓库
+    let objStore = transaction.objectStore(objStoreName);
+    let result = objStore.get(roomId)
+    result.onsuccess = function (event) {
+      let cursor = event.target.result;
+      if (cursor) {
+        cursor.time = Date.now()
+        objStore.put(cursor)
+      } else {
+        console.log('没有更多数据了！');
+      }
+    }
+  }
+}
+function getRooms({dbName='learnWebsocket', objStoreName='',cb=''}){
+  let openRequest = window.indexedDB.open(dbName,version)
+  openRequest.onerror = function () {
+    alert("打开数据库失败！！！");
+  }
+  openRequest.onsuccess = function (ev) {
+    let db = ev.target.result
+    let objStore = db.transaction(objStoreName).objectStore(objStoreName)
+    objStore.getAll().onsuccess =function (event) {
+      let cursor = event.target.result
+      debugger
+      let result = []
+      if(cursor){
+        cb(cursor)
+      }else{
+        cb({msg:null})
+      }
+    }
+  }
+}
 module.exports = {
   addData,
   showMessage,
-  changeStatus
+  changeStatus,
+  changeTime,
+  getRooms
 }

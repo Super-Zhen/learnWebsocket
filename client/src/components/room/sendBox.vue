@@ -50,12 +50,10 @@ export default {
     },
   async mounted(){
     // 读取数据
-    await showMessage({ objStoreName:'messages', version:2,cb:this.getMessage,roomId:this.query.roomId})
+    // await showMessage({ objStoreName:'messages', version:2,cb:this.getMessage,roomId:this.query.roomId})
 
   },
-  beforeDestroy(){
-    console.log(1111)
-  },
+
     methods:{
       // 从前端数据库中获取数据然后添加到store中
       getMessage(data){
@@ -86,10 +84,6 @@ export default {
         socket.emit('messages',data)
         // this.$emit('getMessage',{value:this.messageCopy,query:this.query,status:0,isMe:true})
         this.$store.commit('setRooms',{...data,status:"loading"})
-
-
-        // let students = []
-        // students.push(data);
         addData({ objStoreName:'messages', data});//这里填入三个参数数据库名，表名，json数据
       }
     }

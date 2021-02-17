@@ -9,6 +9,7 @@
 
 <script>
   import Cell from '../components/chat/cell'
+  import {getRooms} from '../indexedDB'
     export default {
         name: "Chat",
       components:{
@@ -18,8 +19,8 @@
           return {
           }
       },
-      mounted(){
-
+      async mounted(){
+        await getRooms({objStoreName:'rooms',cb:this.roomLists})
       },
       computed:{
         roomList(){
@@ -42,6 +43,9 @@
           getRoomMsgLast(roomId){
             let roomData = this.roomList[roomId]
             return roomData[roomData.length-1]
+          },
+          roomLists(data){
+              console.log(data)
           }
         // 查询消息记录 过滤数据库中的所有房间  这种方式不可取
         // 需要先从自己的好友列表中查询所有的房间号，

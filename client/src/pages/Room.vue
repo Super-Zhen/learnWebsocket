@@ -16,6 +16,7 @@
   import SendBox from 'components/room/sendBox'
   import Message from 'components/room/message'
   import {mapGetters, mapState} from 'vuex';
+  import { changeTime,addData} from '../indexedDB'
 
   export default {
     name: "room",
@@ -36,7 +37,13 @@
       // 当页面刷新得时候获取历史记录
     },
     mounted(){
-
+      // 进入房间之后就更新房间时间，离开也需要更新
+      // addData({ objStoreName:'rooms',version:2, data:{roomId:this.roomId,time:Date.now()}})
+      // 需要考虑修改了本地时间的问题
+      changeTime({ objStoreName:'rooms', roomId:this.roomId})
+      this.$once('hook:beforeDestroy', () => {
+        changeTime({ objStoreName:'rooms', roomId:this.roomId})
+      })
     },
     computed:{
       ...mapState([

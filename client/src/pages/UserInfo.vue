@@ -21,6 +21,7 @@
 
 <script>
   import {Icon,Button,Dialog} from 'vant'
+  import { addData} from '../indexedDB'
     export default {
         name: "UserInfo",
       components:{
@@ -57,8 +58,9 @@
         },
         async addFriend(id){
         //  参数为查询用户的id  加上自身的id 传递给后端
+          // 这儿传递给后端之后需要查看是否是好友
           const _this = this
-          const {_id} = this.$store.getters.getUserInfo //
+          const {_id} = this.$store.getters.getUserInfo
           const data = {user_id:_id.localeCompare(id)<0?_id:id,friend_id:_id.localeCompare(id)<0?id:_id}
           let res = await this.$store.dispatch('AddFriend',data)
           let message= ''
@@ -66,6 +68,8 @@
             message = '已经是好友'
           }else{
             message = '添加好友成功，现在可以聊天了'
+            // 添加好友成功 就需要在浏览器的房间表中创建一条数据来进行判断已读还是未读
+            addData({ objStoreName:'rooms', data:{roomId:res.roomId,time:Date.now()}})
           }
           Dialog.confirm({
             title: '标题',
