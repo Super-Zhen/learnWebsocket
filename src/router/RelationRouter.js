@@ -1,5 +1,6 @@
 const Relationship = require('../schema_model/relationship')
 const User = require('../schema_model/user')
+const compareLocal = require('../util/compareLocal')
 const uuid = require('node-uuid')
 module.exports = function (app) {
     // 判断是否是好友关系
@@ -22,7 +23,13 @@ module.exports = function (app) {
             }
         })*/
         try {
-            const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}]})
+            // 这儿得传入的参数是小的在前面 大的
+            const [user,friend] = compareLocal(user_id,friend_id)
+            const result =await Relationship.findOne({friend_id:friend,user_id:user}).populate({
+                path: 'friend_id',
+                select: 'username email'
+            })
+            console.log(result)
             friendInfo = await User.findById(friend_id,{username:1,sign:1,gender:1,email:1})
             if(result && friendInfo){ // 如果查询到有数据
                 res.send(Object.assign({relations:result._doc.relations},{friendInfo:friendInfo._doc},{roomId:result._doc.roomId}))
@@ -63,10 +70,11 @@ module.exports = function (app) {
                 // 好友关系库添加
                 RelationshipData.save(async (err,data)=>{
                     if(err) res.status(500).json({msg:'服务器错误'})
-                    await changeFriendList(friend_id,user_id)
-                    await changeFriendList(user_id,friend_id)
-                    let result = await User.findById(user_id,{userpwd:0})
-                    res.send(Object.assign(result._doc,{roomId,codeFlag: 2}))
+                    // await changeFriendList(friend_id,user_id)
+                    // await changeFriendList(user_id,friend_id)
+                    // let result = await User.findById(user_id,{userpwd:0})
+                    // res.send(Object.assign(result._doc,{roomId,codeFlag: 2}))
+                    res.send({msf:'成功'})
                 })
             }
         }catch(e)

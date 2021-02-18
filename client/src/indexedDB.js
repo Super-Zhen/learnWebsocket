@@ -1,6 +1,6 @@
 let dbName = 'learnWebsocket';//数据库名
 let version = 2; //版本号
-window.onload = function () {
+// window.onload = function () {
   const request = window.indexedDB.open(dbName, version);
   request.onerror = function (event) {
     console.log('数据库打开报错');
@@ -8,9 +8,11 @@ window.onload = function () {
   request.onsuccess = function (event) {
     let db = request.result;
     console.log('数据库打开成功');
+    //数据库打开成功之后 获取
   };
 
   request.onupgradeneeded = function (event) {
+    console.log(111)
     alert("version Change");
     let db = event.target.result;//获取到的数据库
     //在数据库下面创建对象空间
@@ -33,7 +35,7 @@ window.onload = function () {
   }
 
 
-}
+// }
 // 数据库添加数据
 /*
  @ params dbname 数据库名称

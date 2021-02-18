@@ -64,7 +64,7 @@
           },
         async isAddFriend(param){
            // 点击之后判断是否是好友，如果不是好友的情况就显示添加好友，如果是好友的情况就显示发送消息
-          const user_id = this.$store.getters.getUserInfo._id
+          let user_id = this.$store.getters.getUserInfo._id
             const data = {user_id,friend_id: param}
             const result = await this.$store.dispatch('FindRelation',data)
             console.log(result)

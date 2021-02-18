@@ -20,6 +20,7 @@
           }
       },
       async mounted(){
+          // 先获取本地数据，然后获取远程服务的数据这样
         await getRooms({objStoreName:'rooms',cb:this.roomLists})
       },
       computed:{
