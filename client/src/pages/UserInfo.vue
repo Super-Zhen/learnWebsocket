@@ -61,33 +61,46 @@
           // 这儿传递给后端之后需要查看是否是好友
           const _this = this
           const {_id} = this.$store.getters.getUserInfo
-          const data = {user_id:_id.localeCompare(id)<0?_id:id,friend_id:_id.localeCompare(id)<0?id:_id}
+          const data = {user_id:_id,friend_id:id}
           let res = await this.$store.dispatch('AddFriend',data)
           let message= ''
           if(res.codeFlag===1){
             message = '已经是好友'
+            Dialog.confirm({
+              title: '标题',
+              message: message,
+            })
+              .then(() => {
+                this.$router.push({
+                  path:'/room',
+                  query:{
+                    roomId:res.roomId,
+                    isSingle:1,
+                  }
+                })
+              })
+          }else if(res.codeFlag===3){
+            console.log('发送成功')
           }else{
             message = '添加好友成功，现在可以聊天了'
             // 添加好友成功 就需要在浏览器的房间表中创建一条数据来进行判断已读还是未读
             addData({ objStoreName:'rooms', data:{roomId:res.roomId,time:Date.now()}})
-          }
-          Dialog.confirm({
-            title: '标题',
-            message: message,
-          })
-            .then(() => {
-              this.$router.push({
-                path:'/room',
-                query:{
-                  roomId:res.roomId,
-                  isSingle:1,
-
-                }
-              })
+            Dialog.confirm({
+              title: '标题',
+              message: message,
             })
-            .catch(() => {
-              // on cancel
-            });
+              .then(() => {
+                this.$router.push({
+                  path:'/room',
+                  query:{
+                    roomId:res.roomId,
+                    isSingle:1,
+                  }
+                })
+              })
+          }
+
+
         }
       }
     }

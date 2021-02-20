@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Status = new Schema({
-    user_id:String,
+    user_id:{type:Schema.Types.ObjectId,ref:'user'},
     status:{
         type:String,
         enum:["1","2"], // 1是在线 2是下线

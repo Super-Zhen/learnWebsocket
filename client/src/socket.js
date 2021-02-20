@@ -48,5 +48,8 @@ socket.on('status',function (data) {
   console.log("status-node",{...data,status:'success'})
 
 })
+socket.on('addFriend',function (data) {
+  console.log('addFriend',data)
+})
 
 

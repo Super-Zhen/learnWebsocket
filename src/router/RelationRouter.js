@@ -13,7 +13,7 @@ module.exports = function (app) {
        就会出现friend 返回用户信息，user 返回朋友信息，需要做判断处理）
        后来借鉴别人项目中的方法 将好友关联表中 好友添加 存成不同顺序的两个 a,b or b,a 查询的时候比较方便
      */
-    let friendInfo = ''
+
     app.post('/find/relation',async (req,res)=>{
         const {user_id,friend_id} = req.body
         // 通过id查询 //返回关系  普通写法
@@ -42,11 +42,10 @@ module.exports = function (app) {
             console.log(result)
             if(result){ // 如果查询到有数据
                 res.send(result)
-            }else if(!result && friendInfo){ // 用户存在不是好友
-                friendInfo = await User.findById(friend_id,{username:1,sign:1,gender:1,email:1})
+            }else { // 用户存在不是好友
+                let friendInfo = await User.findById(friend_id,{username:1,sign:1,gender:1,email:1})
+                if(!friendInfo)  res.send({msg:'用户不存在'})
                 res.send(Object.assign({relations:2},{friendInfo:friendInfo._doc}))
-            } else {
-              res.send({msg:'用户不存在'})
             }
         }catch(e)
         {
@@ -62,47 +61,75 @@ module.exports = function (app) {
         // 如果不是好友则添加好友 同时更新用户friendList 数组
         try {
             // 由于上面的修改 这儿的查询也不再需要or 来查询，只需要查询其中一条是否存在就可以了
-            const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}],relations:1})
+            const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}]})
             if(result ){ // 如果查询到有数据
                 // 已经是好友
-                console.log(result)
-                res.send({msg:'已经是好友',roomId:result._doc.roomId,codeFlag:1})
+                if(result.relations===1){
+                    console.log(result)
+                    res.send({msg:'已经是好友',roomId:result._doc.roomId,codeFlag:1})
+                }else{
+                    const isOnline = await Online.findOne({user_id:friend_id}).populate({
+                        path:'user_id',
+                        select:'username gender'
+                    }).exec()
+                    if(isOnline._doc.status==="1"){//在线
+                        global.SOCKETIO.to(isOnline._doc.socketId).emit('addFriend',{info:isOnline._doc.user_id._doc})
+                        res.status(200).json({msg:"已发送"})
+                    }else{
+                        const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}],relations:3})
+                        if(result) {
+                            res.status(200).json({msg:"已发送",codeFlag:3})
+                            return
+                        }
+                        // 不在线存储到离线消息中直接放在关系表中
+
+                        res.status(200).json({msg:"已发送",codeFlag:3})
+                    }
+
+                }
+
             }else{ // 用户存在不是好友
-                // 不是好友的时候需要给对方发送一条通知
-                const isOnline = await Online.findOne({user_id:friend_id}).exec()
-                if(!isOnline){
-                    throw Error('添加好友，查询不到好友是否在线')
-                }
-                if(isOnline._doc.status==="1"){//在线
-                    global.SOCKETIO.to(isOnline._doc.socketId).emit('addFriend',{})
-                }
-                // 添加好友得操作
-                const roomId = uuid.v1()
-                // 比较也不再需要
-                // let id = user_id.localeCompare(friend_id)<0?{user_id,friend_id}:{user_id:friend_id,friend_id:user_id}
                 const relations = {
                     friend_id,
                     user_id,
-                    relations:1,
-                    roomId
+                    relations:3,
                 }
                 const otherRelations ={
                     friend_id:user_id,
                     user_id:friend_id,
-                    relations:1,
-                    roomId
+                    relations:3,
                 }
-                const relationshipData = new Relationship(relations).save()
-                const otherRelationshipData = new Relationship(otherRelations).save()
-                // 好友关系库添加
-                RelationshipData.save(async (err,data)=>{
-                    if(err) res.status(500).json({msg:'服务器错误'})
-                    // await changeFriendList(friend_id,user_id)
-                    // await changeFriendList(user_id,friend_id)
-                    // let result = await User.findById(user_id,{userpwd:0})
-                    // res.send(Object.assign(result._doc,{roomId,codeFlag: 2}))
-                    res.send({msf:'成功'})
-                })
+                const res1 =  await new Relationship(relations).save()
+                const res2 = await new Relationship(otherRelations).save()
+                console.log('好友不在线添加好友关系存放数据库',res1,res2)
+
+                // 添加好友得操作
+                const roomId = uuid.v1()
+                // 比较也不再需要
+                // let id = user_id.localeCompare(friend_id)<0?{user_id,friend_id}:{user_id:friend_id,friend_id:user_id}
+                // const relations = {
+                //     friend_id,
+                //     user_id,
+                //     relations:1,
+                //     roomId
+                // }
+                // const otherRelations ={
+                //     friend_id:user_id,
+                //     user_id:friend_id,
+                //     relations:1,
+                //     roomId
+                // }
+                // const relationshipData = new Relationship(relations).save()
+                // const otherRelationshipData = new Relationship(otherRelations).save()
+                // // 好友关系库添加
+                // RelationshipData.save(async (err,data)=>{
+                //     if(err) res.status(500).json({msg:'服务器错误'})
+                //     // await changeFriendList(friend_id,user_id)
+                //     // await changeFriendList(user_id,friend_id)
+                //     // let result = await User.findById(user_id,{userpwd:0})
+                //     // res.send(Object.assign(result._doc,{roomId,codeFlag: 2}))
+                //     res.send({msf:'成功'})
+                // })
             }
         }catch(e)
         {
