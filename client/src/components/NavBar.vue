@@ -4,7 +4,6 @@
         style="background-color: #0F195B;"
         :title="this.title"
         fixed
-        left-text="通讯录"
       >
         <template #left>
           <van-icon name="wap-nav" size="28" color="#fff"  @click="menu"/>
@@ -19,6 +18,7 @@
 
 <script>
   import {NavBar,Icon} from 'vant'
+  import {mapMutations} from 'vuex'
     export default {
         name: "NavBar",
       components:{
@@ -37,8 +37,11 @@
           console.log('点击addFriends')
           this.$router.push('/search/2')
         },
+        ...mapMutations([
+          'setShowMenu'
+        ]),
         menu(){
-
+          this.setShowMenu(true)
         }
       }
     }

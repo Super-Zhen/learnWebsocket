@@ -61,7 +61,9 @@ body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input { margin: 0 }
 .flexWrap{display: flex;flex-wrap: wrap}
 .flexDc{display: flex;flex-direction: column}
 
+.fontC666{color: #666666 !important;}
 .fontC999{color: #999999 !important;}
+.fontCfff{color: #ffffff !important;}
 .fontCff347e{color: #ff347e !important;}
 .textAC{text-align: center}
 .overfH{overflow: hidden}

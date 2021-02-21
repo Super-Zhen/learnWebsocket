@@ -1,5 +1,11 @@
 <template>
     <div>
+      <nav-bar :title="title">
+        <template #right>
+          <!--          <van-icon name="search" size="30" color="#fff" @click="search"/> &nbsp;&nbsp;&nbsp;-->
+          <van-icon name="setting-o" size="28" color="#fff" />
+        </template>
+      </nav-bar>
       <template v-for="(value,key,index) in roomList">
         <cell :value="getRoomMsgLast(key)" @click.native="toRoom(value,key)"></cell>
       </template>
@@ -9,14 +15,19 @@
 
 <script>
   import Cell from '../components/chat/cell'
+  import NavBar from 'components/NavBar'
+  import {Icon} from 'vant'
   import {getRooms} from '../indexedDB'
     export default {
         name: "Chat",
       components:{
-        Cell
+          [Icon.name]:Icon,
+        Cell,
+        NavBar
       },
       data(){
           return {
+            title:'Chat'
           }
       },
       async mounted(){
@@ -28,6 +39,9 @@
           return this.$store.getters.getRooms
         }
       },
+      // toDo
+      // 研究一下插槽
+      // 添加上路由
       methods:{
           toRoom(param,id){
             if(param[0].isSingle=='1'){
