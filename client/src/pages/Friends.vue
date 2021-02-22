@@ -54,7 +54,7 @@
         },
         search(){
           console.log('点击search')
-          this.$router.push('/search/1')
+          this.$router.push('/search/2')
         },
       }
     }

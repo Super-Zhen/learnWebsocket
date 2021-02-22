@@ -2,7 +2,7 @@
     <div class="nav  pdl10 flexAC flexJB">
       <div>
         <slot name="left">
-          <van-icon name="wap-nav" size="24" color="#fff"  @click="leftBtn"/>
+          <van-icon name="wap-nav" size="24" color="#fff"  @click="leftBtn" dot/>
         </slot>
       </div>
       <div class="fontS22">

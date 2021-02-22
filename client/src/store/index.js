@@ -64,7 +64,7 @@ const store =  new Vuex.Store({
       state.receiveUserInfo = {...state.receiveUserInfo,...param}
     },
     setFriendAddMsg(state,param){
-      state.friendAddMsg= {}
+      state.friendAddMsg= param
     },
     setShowMenu(state,param){
       state.showMenu = param
@@ -123,8 +123,12 @@ const store =  new Vuex.Store({
     // 通过id 获取有消息的房间
     async getHasMsgRoom({},data){
       // const
+    },
+    // 通过id 查询添加好友的消息
+    async getAddFriendMsg({commit},data){
+      const result = await serverApi.getAddFriendMsg(data)
+      commit('setFriendAddMsg',result)
     }
-
   },
 
 

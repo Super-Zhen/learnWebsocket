@@ -96,4 +96,20 @@ module.exports = function (app) {
             res.status(500).json({msg:'服务器错误'})
         }
     })
+    // 获取离线添加好友的信息
+    app.get('/find/addFriendMsg',async (req,res)=>{
+        const {user_id} = req.query
+
+        try {
+            const info = await Relationship.findOne({user_id,relations:3},{_id:0}).populate({
+                path:'friend_id',
+                select:'gender username _id -user_id'
+            })
+            if(info){
+                res.send(info)
+            }
+        }catch (e) {
+            res.status(500).json({msg:'服务器错误'})
+        }
+    })
 }

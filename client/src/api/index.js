@@ -19,7 +19,9 @@ const serverApi = {
    // 通过当前用户查询所在的所有房间
   getHasMsgRoom: data => axios.get('/api/find/msgRoom',{params:data}),
   // 点击朋友列表中的某个人的时候获取房间id
-  findRoomId: data => axios.get('/api/find/roomId',{params:data})
+  findRoomId: data => axios.get('/api/find/roomId',{params:data}),
+  // 获取离线 好友的添加消息
+  getAddFriendMsg: data =>axios.get('/api/find/addFriendMsg',{params:data})
   }
 
 export default serverApi

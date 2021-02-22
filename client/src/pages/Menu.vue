@@ -1,5 +1,5 @@
 <template>
-   <div class="flex box">
+   <div class="flex box" @click="hidenMenu">
      <div class="right">
        <div class="flexAC flexJC flexDc head">
          <img class="headImg mgb15" src="@/assets/img/20210113105735.jpg" alt="">
@@ -25,7 +25,7 @@
           return {
             list:[
               {icon:'wap-home-o',title:'Home', color:'#666',to:'/'},
-              {icon:'friends-o',title:'Friends', color:'#666', to:'friends',dot:true},
+              {icon:'friends-o',title:'Friends', color:'#666', to:'/friends',dot:!!this.friendAddMsg},
               {icon:'comment-o',title:'Messages', color:'#666',to:'/'},
               {icon:'setting-o',title:'Settings', color:'#666', to:'/me'},
             ],
@@ -37,8 +37,15 @@
       },
       computed:{
           ...mapState([
-            'userInfo'
+            'userInfo',
+            'friendAddMsg'
           ])
+      },
+      watch:{
+        friendAddMsg(data){
+          console.log(!!data)
+          this.list.splice(1,1,{icon:'friends-o',title:'Friends', color:'#666', to:'friends',dot:!!data})
+        }
       },
       methods:{
           ...mapMutations([
@@ -54,8 +61,11 @@
           },1000)
         },
         hidenMenu(param){
+            debugger
+          if(param.currentTarget &&!Array.from(param.currentTarget.classList).includes('box')) {
             this.$router.push(param)
-            this.setShowMenu(false)
+          }
+          this.setShowMenu(false)
         }
       }
     }

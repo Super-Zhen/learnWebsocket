@@ -16,7 +16,7 @@
 <script>
   import Cell from '../components/chat/cell'
   import NavBar from 'components/NavBar'
-  import {mapMutations} from 'vuex'
+  import {mapMutations,mapActions} from 'vuex'
   import {Icon} from 'vant'
   import {getRooms} from '../indexedDB'
     export default {
@@ -34,10 +34,15 @@
       async mounted(){
           // 先获取本地数据，然后获取远程服务的数据这样
         await getRooms({objStoreName:'rooms',cb:this.roomLists})
+        this.getAddFriendMsg({user_id:this.id})
       },
       computed:{
         roomList(){
           return this.$store.getters.getRooms
+        },
+        id(){
+          debugger
+          return this.$store.getters.getUserInfo._id
         }
       },
       // toDo
@@ -46,6 +51,9 @@
       methods:{
         ...mapMutations([
           'setShowMenu'
+        ]),
+        ...mapActions([
+          'getAddFriendMsg'
         ]),
         search(){
           console.log('点击search')
