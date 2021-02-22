@@ -1,6 +1,6 @@
 <template>
     <div>
-      <nav-bar title="Friends"></nav-bar>
+      <nav-bar :title="title" :leftClick = 'menu' :rightClick="search"></nav-bar>
       <friend-cell :list="userInfo.friendList"></friend-cell>
     </div>
 </template>
@@ -9,13 +9,16 @@
   import FriendCell from 'components/addressBook/FriendCell'
   import NavBar from 'components/NavBar'
   import SideNav from 'components/addressBook/sideNav'
-  import {mapState} from 'vuex'
+  import {mapState,mapMutations} from 'vuex'
     export default {
         name: "Friends",
       components:{
           FriendCell,
           NavBar,
         SideNav
+      },
+      created(){
+        this.title='Friends'
       },
      computed:{
        ...mapState([
@@ -41,6 +44,18 @@
             //   {id: "600a87b05f38cf2c30417da1", name: "rocket"},
             // ]
           }
+      },
+      methods:{
+        ...mapMutations([
+          'setShowMenu'
+        ]),
+        menu(){
+          this.setShowMenu(true)
+        },
+        search(){
+          console.log('点击search')
+          this.$router.push('/search/1')
+        },
       }
     }
 </script>

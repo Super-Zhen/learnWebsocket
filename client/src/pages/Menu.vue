@@ -1,12 +1,12 @@
 <template>
-   <div class="flex box" @click="hidenMenu">
+   <div class="flex box">
      <div class="right">
        <div class="flexAC flexJC flexDc head">
          <img class="headImg mgb15" src="@/assets/img/20210113105735.jpg" alt="">
          <p class="fontCfff fontS22">{{userInfo.username}}</p>
        </div>
        <template v-for="item in list">
-         <Cell :i="item"></Cell>
+         <Cell :i="item" @click.native="hidenMenu(item.to)"></Cell>
        </template>
 
        <div style="position:absolute;bottom: 20px;" @click="loginOuts">
@@ -24,10 +24,10 @@
       data(){
           return {
             list:[
-              {icon:'wap-home-o',title:'Home', color:'#666'},
-              {icon:'friends-o',title:'Friends', color:'#666'},
-              {icon:'comment-o',title:'Messages', color:'#666'},
-              {icon:'setting-o',title:'Settings', color:'#666'},
+              {icon:'wap-home-o',title:'Home', color:'#666',to:'/'},
+              {icon:'friends-o',title:'Friends', color:'#666', to:'friends',dot:true},
+              {icon:'comment-o',title:'Messages', color:'#666',to:'/'},
+              {icon:'setting-o',title:'Settings', color:'#666', to:'/me'},
             ],
             loginOut:{icon:'delete-o',title:'login Out', color:'#666'}
           }
@@ -45,9 +45,16 @@
             'setShowMenu'
           ]),
         loginOuts(){
-          console.log(1111)
+          localStorage.removeItem('userInfo')
+          localStorage.removeItem('isLogin')
+          localStorage.removeItem('token')
+          this.setShowMenu(false)
+          setTimeout(()=>{
+            this.$router.push('/login')
+          },1000)
         },
-        hidenMenu(){
+        hidenMenu(param){
+            this.$router.push(param)
             this.setShowMenu(false)
         }
       }

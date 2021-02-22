@@ -1,9 +1,9 @@
 <template>
     <div>
-      <nav-bar :title="title">
+      <nav-bar :title="title" :leftClick = 'menu'>
         <template #right>
-          <!--          <van-icon name="search" size="30" color="#fff" @click="search"/> &nbsp;&nbsp;&nbsp;-->
-          <van-icon name="setting-o" size="28" color="#fff" />
+          <van-icon name="search" size="24" color="#fff" @click="search"/>
+          <van-icon name="ellipsis" size="24" color="#fff" @click="settings" style="transform: rotate(90deg)"/>
         </template>
       </nav-bar>
       <template v-for="(value,key,index) in roomList">
@@ -16,6 +16,7 @@
 <script>
   import Cell from '../components/chat/cell'
   import NavBar from 'components/NavBar'
+  import {mapMutations} from 'vuex'
   import {Icon} from 'vant'
   import {getRooms} from '../indexedDB'
     export default {
@@ -27,7 +28,7 @@
       },
       data(){
           return {
-            title:'Chat'
+            title:'Messages'
           }
       },
       async mounted(){
@@ -43,6 +44,19 @@
       // 研究一下插槽
       // 添加上路由
       methods:{
+        ...mapMutations([
+          'setShowMenu'
+        ]),
+        search(){
+          console.log('点击search')
+          this.$router.push('/search/3') // 3位本地
+        },
+        menu(){
+          this.setShowMenu(true)
+        },
+        settings(){
+          console.log('设置为已读')
+        },
           toRoom(param,id){
             if(param[0].isSingle=='1'){
               this.$store.commit('setReceiveUserInfo',{name:param[0].name,id:param[0].receive_id[0]})
