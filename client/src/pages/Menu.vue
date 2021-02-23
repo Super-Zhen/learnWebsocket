@@ -1,5 +1,5 @@
 <template>
-   <div class="flex box" @click="hidenMenu">
+   <div class="flex box" @click="hidenMenu('hide')">
      <div class="right">
        <div class="flexAC flexJC flexDc head">
          <img class="headImg mgb15" src="@/assets/img/20210113105735.jpg" alt="">
@@ -61,10 +61,9 @@
           },1000)
         },
         hidenMenu(param){
-            debugger
-          if(param.currentTarget &&!Array.from(param.currentTarget.classList).includes('box')) {
-            this.$router.push(param)
-          }
+            if(param!=='hide'){
+              this.$router.push(param)
+            }
           this.setShowMenu(false)
         }
       }

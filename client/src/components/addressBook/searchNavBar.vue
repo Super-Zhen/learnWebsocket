@@ -1,10 +1,8 @@
 <template>
     <van-search
       v-model="searchValue"
-      show-action
       :placeholder='placeholder'
       @input="onSearch"
-      @cancel="onCancel"
     />
 </template>
 

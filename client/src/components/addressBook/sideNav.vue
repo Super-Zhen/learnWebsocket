@@ -56,7 +56,7 @@
   .letterItem{
     width: 20px;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.2;
     display: block;
     color: #333333;
   }

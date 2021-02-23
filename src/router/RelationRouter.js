@@ -103,7 +103,7 @@ module.exports = function (app) {
         try {
             const info = await Relationship.findOne({user_id,relations:3},{_id:0}).populate({
                 path:'friend_id',
-                select:'gender username _id -user_id'
+                select:'gender username _id '
             })
             if(info){
                 res.send(info)
