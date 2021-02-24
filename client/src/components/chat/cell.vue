@@ -7,21 +7,26 @@
           <p class="fontS15" v-if="value.content">{{value.content.substring(0,10)}}...</p>
         </div>
       </div>
-      <div class="height50 fontS1 time" v-if="value.send_time">
-        {{value.send_time}}
-      </div>
+      <slot name="right">
+
+      </slot>
+
+<!--      <div class="height50 fontS1 time" v-if="value.send_time">-->
+<!--        {{value.send_time}}-->
+<!--      </div>-->
     </div>
 
 </template>
 
 <script>
-
+    import {Button} from 'vant'
     export default {
         name: "cell",
       props:[
         "value"
       ],
       components:{
+          [Button.name]:Button
       },
     }
 </script>

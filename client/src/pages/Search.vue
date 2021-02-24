@@ -1,6 +1,10 @@
 <template>
   <div>
     <search-nav-bar @callback="change" :placeholder="placeholder"></search-nav-bar>
+    {{friendAddMsg}}
+    <template v-for="item in friendAddMsg">
+      {{item}}
+    </template>
     <template v-for="item in friendsList" >
       <van-cell @click="isAddFriend(item._id)">
         <template #title>
@@ -20,6 +24,7 @@
 
 <script>
   import SearchNavBar from 'components/addressBook/searchNavBar'
+  import {mapState} from 'vuex'
   import {Cell} from 'vant'
     export default {
         name: "Search",
@@ -37,6 +42,9 @@
         this.debounce = this.util.debounce(this.getFriends,1000)
       },
       computed:{
+          ...mapState([
+            'friendAddMsg'
+          ]),
         placeholder(){
           const {id} = this.$route.params
           console.log(id)

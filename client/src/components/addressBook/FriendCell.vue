@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 60px">
-    <side-nav @choose = 'choose'></side-nav>
+    <side-nav @choose = 'choose' v-show="!flag"></side-nav>
     <template v-for="(value, key, index) of lists">
         <p class="bgColor lineHeigh pdl20" :key="index" :ref="key">{{key}}</p>
       <template v-for="(item) in value">
@@ -19,7 +19,8 @@
     export default {
       name: "friendCell",
       props:[
-        'list'
+        'list',
+        'flag'
       ],
       components:{
         SideNav,

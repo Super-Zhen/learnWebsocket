@@ -1,8 +1,15 @@
 <template>
     <div>
-      <nav-bar :title="title" :leftClick = 'menu' :rightClick="search"></nav-bar>
+      <nav-bar :title="title" :leftClick = 'menu' :rightClick="search" :iconShow="!show"></nav-bar>
       <search-nav-bar></search-nav-bar>
-      <friend-cell :list="userInfo.friendList"></friend-cell>
+      <cell :value="info">
+        <template #right>
+          <div>
+            <van-button  size="middle" class="fontS18 pad1020" color="#ff347E" @click="addFriend(info)">Add</van-button>
+          </div>
+        </template>
+      </cell>
+      <friend-cell :list="userInfo.friendList" :flag="!!info"></friend-cell>
       <van-popup v-model="show" :overlay=true position="bottom" :style="{lineHeight:'100px', background: '-webkit-gradient(linear, 0 0, 0 100%, from(#ffffffbf), to(#e6e3e3))' }" >
         <van-button type="primary" color="#FF347E" size="large" @click="tosearch">Add New Friend</van-button>
       </van-popup>
@@ -33,14 +40,23 @@
       },
      computed:{
        ...mapState([
-         'userInfo'
+         'userInfo',
+         'friendAddMsg'
        ]),
+       info(){
+         return{
+           ...this.friendAddMsg.friend_id,
+            name:this.friendAddMsg.friend_id.username,
+
+         }
+       },
      },
+
       data(){
           return{
-            info:{
-              name:'你好'
-            },
+            // info:{
+            //   name:'新的朋友'
+            // },
             show:false
             // list:[
             //   {id: "600a87b05f38cf2c30417da1", name: "zcq"},
@@ -74,6 +90,9 @@
         tosearch(){
           console.log('点击search')
           this.$router.push('/search/2')
+        },
+        addFriend(param){
+            console.log(param)
         }
       }
     }

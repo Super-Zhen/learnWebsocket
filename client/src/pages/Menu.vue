@@ -1,6 +1,6 @@
 <template>
    <div class="flex box" @click="hidenMenu('hide')">
-     <div class="right">
+     <div class="right ">
        <div class="flexAC flexJC flexDc head">
          <img class="headImg mgb15" src="@/assets/img/20210113105735.jpg" alt="">
          <p class="fontCfff fontS22">{{userInfo.username}}</p>
@@ -83,6 +83,7 @@
   width: 315px;
   height: 100%;
   box-shadow:5px 0 60px #bbb6b6;
+  background-color: #fff;
 }
 .left{
   flex: 1;

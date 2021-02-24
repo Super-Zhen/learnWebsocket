@@ -10,9 +10,9 @@
           {{title}}
         </slot>
       </div>
-      <div>
-        <slot name="right">
-          <van-icon name="add-o" size="24" color="#fff" class="pdr10" @click="rightBtn"/>
+      <div class="wid34">
+        <slot name="right" >
+          <van-icon name="add-o" v-show="iconShow" size="24" color="#fff" class="mgr10" @click="rightBtn"/>
         </slot>
       </div>
 
@@ -45,7 +45,8 @@
       props:[
         'title',
         'leftClick',
-        'rightClick'
+        'rightClick',
+        'iconShow'
       ],
       methods:{
         leftBtn(){
@@ -63,6 +64,9 @@
     background-color: #0F195B;
     height: 56px;
     color: #fff;
+  }
+  .wid34{
+    width: 34px;
   }
 .nav /deep/ .van-nav-bar__content{
 
