@@ -5,7 +5,7 @@
       <cell :value="info">
         <template #right>
           <div>
-            <van-button  size="middle" class="fontS18 pad1020" color="#ff347E" @click="addFriend(info)">Add</van-button>
+            <van-button  size="middle" class="fontS18 pad1020" color="#ff347E" @click="addFriends(info)">Add</van-button>
           </div>
         </template>
       </cell>
@@ -23,7 +23,7 @@
   import SideNav from 'components/addressBook/sideNav'
   import Cell from 'components/chat/cell'
   import {Popup,Button} from 'vant'
-  import {mapState,mapMutations} from 'vuex'
+  import {mapState,mapMutations,mapActions} from 'vuex'
     export default {
         name: "Friends",
       components:{
@@ -80,6 +80,9 @@
         ...mapMutations([
           'setShowMenu'
         ]),
+        ...mapActions([
+          'AddFriend'
+        ]),
         menu(){
           this.setShowMenu(true)
         },
@@ -91,8 +94,10 @@
           console.log('点击search')
           this.$router.push('/search/2')
         },
-        addFriend(param){
-            console.log(param)
+        addFriends(param){
+          debugger
+            const data = {user_id:this.userInfo._id,friend_id:param._id,flag:'Agree'}
+            this.AddFriend(data)
         }
       }
     }

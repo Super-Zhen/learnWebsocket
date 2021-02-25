@@ -66,7 +66,8 @@ module.exports = function (app) {
                 if(result._doc.relations===1){
                     console.log(result)
                     res.send({msg:'已经是好友',roomId:result._doc.roomId,codeFlag:result._doc.relations})
-                }else{
+                    return
+                }else {
                     const isOnline = await Online.findOne({user_id:friend_id}).populate({
                         path:'user_id',
                         select:'username gender'
@@ -86,10 +87,8 @@ module.exports = function (app) {
                 }).exec()
                 if(isOnline._doc.status==="1"){//在线
                     global.SOCKETIO.to(isOnline._doc.socketId).emit('addFriend',{info:isOnline._doc.user_id._doc})
-                    res.status(200).json({msg:"已发送",codeFlag:isOnline._doc.relations})
-                }else{
-                    res.status(200).json({msg:"已发送",codeFlag:isOnline._doc.relations})
                 }
+                res.status(200).json({msg:"已发送",codeFlag:isOnline._doc.relations})
             }
         }catch(e)
         {
@@ -111,5 +110,29 @@ module.exports = function (app) {
         }catch (e) {
             res.status(500).json({msg:'服务器错误'})
         }
+    })
+    app.get('/find/agree', async(req,res)=>{
+        const {user_id,friend_id} = req.query
+        try {
+            const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}]})
+            if(result ){
+                // 更新用户关系表
+                const relations = {friend_id,user_id}
+                const res1 = await Relationship.findOneAndUpdate(relations,{relations:1}).exec()
+                const otherRelations ={friend_id:user_id,user_id:friend_id}
+                const res2 = await Relationship.findOneAndUpdate(otherRelations,{relations:1}).exec()
+                const isOnline = await Online.findOne({user_id:friend_id}).populate({
+                    path:'user_id',
+                    select:'username gender'
+                }).exec()
+                if(isOnline._doc.status==="1"){//在线
+                    global.SOCKETIO.to(isOnline._doc.socketId).emit('addFriend',{info:isOnline._doc.user_id._doc})
+                }
+                res.status(200).json({msg:"已发送",codeFlag:isOnline._doc.relations})
+            }
+        }catch (e) {
+            res.status(500).json({msg:'服务器错误'})
+        }
+
     })
 }

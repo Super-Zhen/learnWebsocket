@@ -108,6 +108,7 @@ const store =  new Vuex.Store({
       return result
     },
     async AddFriend({commit},data){
+      debugger
       const result = await serverApi.addFriend(data)
       commit('setUserInfo',result)
       return result
