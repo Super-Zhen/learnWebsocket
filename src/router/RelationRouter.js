@@ -128,7 +128,12 @@ module.exports = function (app) {
                 if(isOnline._doc.status==="1"){//在线
                     global.SOCKETIO.to(isOnline._doc.socketId).emit('addFriend',{info:isOnline._doc.user_id._doc})
                 }
-                res.status(200).json({msg:"已发送",codeFlag:isOnline._doc.relations})
+                // 查询好友列表
+                const res3 = await Relationship.find({user_id,relations:1}).populate({
+                    path:'friend_id',
+                    select:'username gender'
+                })
+                res.status(200).json(res3)
             }
         }catch (e) {
             res.status(500).json({msg:'服务器错误'})

@@ -6,7 +6,7 @@
          <p class="fontCfff fontS22">{{userInfo.username}}</p>
        </div>
        <template v-for="item in list">
-         <Cell :i="item" @click.native="hidenMenu(item.to)"></Cell>
+         <Cell :i="item" @click.native="hidenMenu(item)"></Cell>
        </template>
 
        <div style="position:absolute;bottom: 20px;" @click="loginOuts">
@@ -61,8 +61,14 @@
           },1000)
         },
         hidenMenu(param){
+            debugger
             if(param!=='hide'){
-              this.$router.push(param)
+              if(param.to==='/friends' &&param.dot){
+                this.$router.push('/search/2')
+              }else{
+                this.$router.push(param.to)
+              }
+
             }
           this.setShowMenu(false)
         }

@@ -10,7 +10,7 @@
           {{title}}
         </slot>
       </div>
-      <div class="wid34">
+      <div class="">
         <slot name="right" >
           <van-icon name="add-o" v-show="iconShow" size="24" color="#fff" class="mgr10" @click="rightBtn"/>
         </slot>

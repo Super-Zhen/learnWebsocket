@@ -81,7 +81,7 @@
           'setShowMenu'
         ]),
         ...mapActions([
-          'AddFriend'
+          'friendAgree'
         ]),
         menu(){
           this.setShowMenu(true)
@@ -94,10 +94,15 @@
           console.log('点击search')
           this.$router.push('/search/2')
         },
-        addFriends(param){
+        async addFriends(param){
           debugger
             const data = {user_id:this.userInfo._id,friend_id:param._id,flag:'Agree'}
-            this.AddFriend(data)
+            try{
+             let result = await this.friendAgree(data)
+              console.log(result)
+            }catch (e) {
+              console.log(e)
+            }
         }
       }
     }

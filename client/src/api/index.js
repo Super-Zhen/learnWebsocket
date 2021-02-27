@@ -21,7 +21,9 @@ const serverApi = {
   // 点击朋友列表中的某个人的时候获取房间id
   findRoomId: data => axios.get('/api/find/roomId',{params:data}),
   // 获取离线 好友的添加消息
-  getAddFriendMsg: data =>axios.get('/api/find/addFriendMsg',{params:data})
+  getAddFriendMsg: data =>axios.get('/api/find/addFriendMsg',{params:data}),
+  // 被添加好友同意
+  friendAgree: data => axios.get('/api/find/agree',{params:data})
   }
 
 export default serverApi

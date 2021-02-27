@@ -129,6 +129,10 @@ const store =  new Vuex.Store({
     async getAddFriendMsg({commit},data){
       const result = await serverApi.getAddFriendMsg(data)
       commit('setFriendAddMsg',result)
+    },
+    async friendAgree({commit},data){
+      const result = await serverApi.friendAgree(data)
+      return result
     }
   },
 
