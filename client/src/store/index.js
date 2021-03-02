@@ -68,7 +68,8 @@ const store =  new Vuex.Store({
     },
     setShowMenu(state,param){
       state.showMenu = param
-    }
+    },
+    // set
   },
 
   getters: {        //这里是get方法 
@@ -78,15 +79,18 @@ const store =  new Vuex.Store({
   },
 
   actions: {
+    // 登录
     async Login({commit}, data){
       const result = await serverApi.login(data)
       // commit('setUserInfo',{username:result.username})
       return result
     },
+    // 注册
     async Register({}, data){
       const result = await serverApi.register(data)
      return result
     },
+    //获取用户信息
     async GetInfo({commit},data){
       const result = await serverApi.getInfo(data)
       commit('setUserInfo',result)
@@ -95,8 +99,14 @@ const store =  new Vuex.Store({
       const result = await serverApi.saveInfo(data)
       commit('setUserInfo',result)
     },
+    // 查找好友
     async FindFriend({commit},data){
       const result = await serverApi.findFriend(data)
+      commit('setFriendList',result)
+    },
+    // 查询好友列表
+    async FindFriendsList({commit},data){
+      const result = await  serverApi.findFriendsList(data)
       commit('setFriendList',result)
     },
     async FindUserByEmail({commit},data){

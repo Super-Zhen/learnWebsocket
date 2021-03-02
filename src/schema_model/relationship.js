@@ -6,7 +6,7 @@ const RelationShip = new Schema({
     friend_id:{type: Schema.Types.ObjectId,ref:'user'},
     relations:{type:Number},  // 1 代表好友关系 2 代表以前是好友关系 后解除好友关系 3 从未添加过好友  不是好友，未通过验证
     roomId:{type:String}             // 房間號
-})
+},{versionKey: false})
 const  relation = mongoose.model('Relation',RelationShip)
 
 module.exports = relation

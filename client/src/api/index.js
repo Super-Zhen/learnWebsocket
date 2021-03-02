@@ -23,7 +23,9 @@ const serverApi = {
   // 获取离线 好友的添加消息
   getAddFriendMsg: data =>axios.get('/api/find/addFriendMsg',{params:data}),
   // 被添加好友同意
-  friendAgree: data => axios.get('/api/find/agree',{params:data})
+  friendAgree: data => axios.get('/api/find/agree',{params:data}),
+  // 查询用户列表
+  findFriendsList:data =>axios.get('/api/find/friendsList',{params:data})
   }
 
 export default serverApi

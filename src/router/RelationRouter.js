@@ -111,6 +111,9 @@ module.exports = function (app) {
             res.status(500).json({msg:'服务器错误'})
         }
     })
+    /**
+     * 添加好友同意接口
+     */
     app.get('/find/agree', async(req,res)=>{
         const {user_id,friend_id} = req.query
         try {
@@ -137,6 +140,24 @@ module.exports = function (app) {
             }
         }catch (e) {
             res.status(500).json({msg:'服务器错误'})
+        }
+
+    })
+    /**
+     * 查询好友列表
+     */
+    app.get('/find/friendsList',async (req,res)=>{
+        const {user_id} = req.query
+        try {
+            const result = await Relationship.find({user_id,relations:1},{relations:0,user_id:0,_id:0,__v:0}).populate({
+                path:'friend_id',
+                select:"-userpwd -createdate -logindate -__v"
+            }).exec()
+            if(!!result){
+                res.send(result)
+            }
+        }catch (e) {
+            console.log(e)
         }
 
     })

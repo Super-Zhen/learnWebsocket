@@ -9,10 +9,10 @@
           </div>
         </template>
       </cell>
-      <friend-cell :list="userInfo.friendList" :flag="!!info"></friend-cell>
-      <van-popup v-model="show" :overlay=true position="bottom" :style="{lineHeight:'100px', background: '-webkit-gradient(linear, 0 0, 0 100%, from(#ffffffbf), to(#e6e3e3))' }" >
-        <van-button type="primary" color="#FF347E" size="large" @click="tosearch">Add New Friend</van-button>
-      </van-popup>
+      <friend-cell :list="friendList" :flag="!!true"></friend-cell>
+<!--      <van-popup v-model="show" :overlay=true position="bottom" :style="{lineHeight:'100px', background: '-webkit-gradient(linear, 0 0, 0 100%, from(#ffffffbf), to(#e6e3e3))' }" >-->
+<!--        <van-button type="primary" color="#FF347E" size="large" @click="tosearch">Add New Friend</van-button>-->
+<!--      </van-popup>-->
     </div>
 </template>
 
@@ -41,7 +41,8 @@
      computed:{
        ...mapState([
          'userInfo',
-         'friendAddMsg'
+         'friendAddMsg',
+         'friendList'
        ]),
        info(){
          return{
@@ -50,8 +51,11 @@
 
          }
        },
-     },
 
+     },
+      mounted(){
+        this.FindFriendsList({user_id:this.userInfo._id})
+      },
       data(){
           return{
             // info:{
@@ -78,10 +82,11 @@
       },
       methods:{
         ...mapMutations([
-          'setShowMenu'
+          'setShowMenu',
         ]),
         ...mapActions([
-          'friendAgree'
+          'friendAgree',
+          'FindFriendsList'
         ]),
         menu(){
           this.setShowMenu(true)
