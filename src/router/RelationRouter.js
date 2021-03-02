@@ -120,10 +120,11 @@ module.exports = function (app) {
             const result =await Relationship.findOne({$or:[{friend_id,user_id},{user_id:friend_id,friend_id:user_id}]})
             if(result ){
                 // 更新用户关系表
+                const roomId = uuid.v4()
                 const relations = {friend_id,user_id}
-                const res1 = await Relationship.findOneAndUpdate(relations,{relations:1}).exec()
+                const res1 = await Relationship.findOneAndUpdate(relations,{relations:1,roomId}).exec()
                 const otherRelations ={friend_id:user_id,user_id:friend_id}
-                const res2 = await Relationship.findOneAndUpdate(otherRelations,{relations:1}).exec()
+                const res2 = await Relationship.findOneAndUpdate(otherRelations,{relations:1,roomId}).exec()
                 const isOnline = await Online.findOne({user_id:friend_id}).populate({
                     path:'user_id',
                     select:'username gender'
