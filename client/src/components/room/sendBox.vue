@@ -25,6 +25,7 @@ export default {
       ])
     },
     async created(){
+      debugger
       this.index = 0
       this.query = this.util.GetRequest() // 房间号和私聊标志
       this.id = this.$store.getters.getUserInfo._id
@@ -63,6 +64,7 @@ export default {
         this.$store.commit('setRoomHistory',{roomId,infoArray})
       },
       sendMsg(){
+        debugger
         if(!this.message) return
         this.messageCopy = this.message
         this.message = ''

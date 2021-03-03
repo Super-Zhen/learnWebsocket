@@ -2,13 +2,13 @@
     <div>
       <nav-bar :title="title" :leftClick = 'menu' :rightClick="search" :iconShow="!show"></nav-bar>
       <search-nav-bar></search-nav-bar>
-      <cell :value="info">
-        <template #right>
-          <div>
-            <van-button  size="middle" class="fontS18 pad1020" color="#ff347E" @click="addFriends(info)">Add</van-button>
-          </div>
-        </template>
-      </cell>
+<!--      <cell :value="info">-->
+<!--        <template #right>-->
+<!--          <div>-->
+<!--            <van-button  size="middle" class="fontS18 pad1020" color="#ff347E" @click="addFriends(info)">Add</van-button>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </cell>-->
       <friend-cell :list="friendList" :flag="!!true"></friend-cell>
 <!--      <van-popup v-model="show" :overlay=true position="bottom" :style="{lineHeight:'100px', background: '-webkit-gradient(linear, 0 0, 0 100%, from(#ffffffbf), to(#e6e3e3))' }" >-->
 <!--        <van-button type="primary" color="#FF347E" size="large" @click="tosearch">Add New Friend</van-button>-->

@@ -37,15 +37,12 @@
           window.scrollTo(0,this.$refs[data][0].offsetTop)
         },
         async toRoom(param){
-          let user = this.$store.getters.getUserInfo._id
-          let friend = param.id
+          debugger
+          let user_id = this.$store.getters.getUserInfo._id
+          let friend_id = param._id
           let res =''
           try {
-            if(user.localeCompare(friend)<0){
-              res = await this.$store.dispatch('FindRoomId',{user_id:user,friend_id:friend})
-            }else{
-              res = await this.$store.dispatch('FindRoomId',{friend_id:user,user_id:friend})
-            }
+            res = await this.$store.dispatch('FindRoomId',{user_id,friend_id})
             this.$router.push({
               path:'/room',
               query:{
