@@ -8,9 +8,9 @@ module.exports = function (app) {
             select:"-userpwd -createdate -logindate -__v"
         }).exec()
         console.log(result)
-        let sendData = [result._doc.friend_id,result._doc.user_id].filter(item=>item!==id)
-        console.log(sendData)
-        res.send(sendData)
+        // let sendData = [result._doc.friend_id,result._doc.user_id].filter(item=>item!==id)
+        console.log(result._doc.friend_id._id)
+        res.send(result._doc.friend_id._id)
     })
     app.get('/find/roomId', async (req,res)=>{
         const {user_id,friend_id} = req.query

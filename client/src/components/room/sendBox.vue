@@ -25,11 +25,10 @@ export default {
       ])
     },
     async created(){
-      debugger
       this.index = 0
       this.query = this.util.GetRequest() // 房间号和私聊标志
       this.id = this.$store.getters.getUserInfo._id
-      this.receiveInfo = this.$store.getters.receiveUserInfo
+      this.receiveInfo = this.$store.getters.getReceiveUserInfo
       // 通过房间号查询接收者的user_id
       // 通过好友列表查询接收者的user_id
       if(this.receiveInfo){
@@ -76,7 +75,7 @@ export default {
             isSingle:this.query.isSingle,
             send_id:this.id,
             send_time:Date.now(),
-            receive_id:this.userArray,
+            receive_id:this.receiveInfo.id,
             uid:uuidv4(),
             isMe:true,
             index:this.index++,

@@ -1,5 +1,13 @@
 <template>
     <div style="padding-bottom: 50px">
+      <headers title="你好">
+        <template #left>
+          <van-icon name="down" size="22" color="#fff" @click="back" style="transform: rotate(90deg)" />
+        </template>
+        <template #right>
+          <van-icon name="ellipsis" size="22" color="#fff"/>
+        </template>
+      </headers>
       <send-box @getMessage="getMessage" style="z-index: 1000" ></send-box>
       <message v-for="(item,index) in rooms[roomId]"
                :key="index"
@@ -15,6 +23,8 @@
 <script>
   import SendBox from 'components/room/sendBox'
   import Message from 'components/room/message'
+  import Headers from 'components/NavBar'
+  import {Icon} from 'vant'
   import {mapGetters, mapState} from 'vuex';
   import { changeTime,addData} from '../indexedDB'
 
@@ -22,7 +32,9 @@
     name: "room",
     components:{
       SendBox,
-      Message
+      Message,
+      Headers,
+      [Icon.name]:Icon
     },
     data(){
       return {
@@ -57,6 +69,9 @@
     methods:{
       getMessage(data){
         // this.List.push( data)
+      },
+      back(){
+        this.$router.back()
       }
     }
   }

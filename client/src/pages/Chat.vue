@@ -66,8 +66,9 @@
           console.log('设置为已读')
         },
           toRoom(param,id){
+          debugger
             if(param[0].isSingle=='1'){
-              this.$store.commit('setReceiveUserInfo',{name:param[0].name,id:param[0].receive_id[0]})
+              this.$store.commit('setReceiveUserInfo',{name:param[0].name,id:param[0].receive_id})
             }
             this.$router.push({
               path:'/room',

@@ -1,5 +1,5 @@
 <template>
-    <div class="nav  pdl10 flexAC flexJB">
+    <div class="nav pdr10 pdl10 flexAC flexJB">
       <div>
         <slot name="left">
           <van-icon name="wap-nav" size="24" color="#fff"  @click="leftBtn" dot/>
@@ -50,7 +50,7 @@
       ],
       methods:{
         leftBtn(){
-          this.leftClick()
+          this.leftClick&&this.leftClick()
         },
         rightBtn(){
           this.rightClick()

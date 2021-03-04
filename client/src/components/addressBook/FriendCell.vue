@@ -37,9 +37,9 @@
           window.scrollTo(0,this.$refs[data][0].offsetTop)
         },
         async toRoom(param){
-          debugger
           let user_id = this.$store.getters.getUserInfo._id
           let friend_id = param._id
+          this.$store.commit('setReceiveUserInfo',{name:param.username,id:friend_id})
           let res =''
           try {
             res = await this.$store.dispatch('FindRoomId',{user_id,friend_id})

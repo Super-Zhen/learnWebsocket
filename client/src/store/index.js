@@ -76,6 +76,7 @@ const store =  new Vuex.Store({
     getUserInfo: state => state.userInfo ,
     searchUserInfo: state => state.searchUserInfo ,
     getRooms: state => state.rooms ,
+    getReceiveUserInfo:state => state.receiveUserInfo
   },
 
   actions: {
