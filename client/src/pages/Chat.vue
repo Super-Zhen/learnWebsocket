@@ -7,7 +7,13 @@
         </template>
       </nav-bar>
       <template v-for="(value,key,index) in roomList">
-        <cell :value="getRoomMsgLast(key)" @click.native="toRoom(value,key)"></cell>
+        <cell :value="getRoomMsgLast(key)" @click.native="toRoom(value,key)">
+<!--          <template slot-scope="props">-->
+<!--            <div class="height50 fontS1 time" v-if="props.value.send_time">-->
+<!--              {{value.send_time}}-->
+<!--            </div>-->
+<!--          </template>-->
+        </cell>
       </template>
 
     </div>
@@ -41,7 +47,6 @@
           return this.$store.getters.getRooms
         },
         id(){
-          debugger
           return this.$store.getters.getUserInfo._id
         }
       },
@@ -65,8 +70,7 @@
         settings(){
           console.log('设置为已读')
         },
-          toRoom(param,id){
-          debugger
+        toRoom(param,id){
             if(param[0].isSingle=='1'){
               this.$store.commit('setReceiveUserInfo',{name:param[0].name,id:param[0].receive_id})
             }

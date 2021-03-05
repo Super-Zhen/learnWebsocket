@@ -63,7 +63,6 @@ export default {
         this.$store.commit('setRoomHistory',{roomId,infoArray})
       },
       sendMsg(){
-        debugger
         if(!this.message) return
         this.messageCopy = this.message
         this.message = ''

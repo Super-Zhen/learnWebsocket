@@ -7,13 +7,11 @@
           <p class="fontS15" v-if="value.content">{{value.content.substring(0,10)}}...</p>
         </div>
       </div>
-      <slot name="right">
+<!--      <slot name="right" :value='value'>-->
 
-      </slot>
+<!--      </slot>-->
 
-<!--      <div class="height50 fontS1 time" v-if="value.send_time">-->
-<!--        {{value.send_time}}-->
-<!--      </div>-->
+
     </div>
 
 </template>

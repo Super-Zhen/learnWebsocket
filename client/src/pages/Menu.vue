@@ -61,7 +61,6 @@
           },1000)
         },
         hidenMenu(param){
-            debugger
             if(param!=='hide'){
               if(param.to==='/friends' &&param.dot){
                 this.$router.push('/search/2')

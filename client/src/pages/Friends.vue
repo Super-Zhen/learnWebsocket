@@ -100,7 +100,6 @@
           this.$router.push('/search/2')
         },
         async addFriends(param){
-          debugger
             const data = {user_id:this.userInfo._id,friend_id:param._id,flag:'Agree'}
             try{
              let result = await this.friendAgree(data)

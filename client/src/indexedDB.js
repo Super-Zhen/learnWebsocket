@@ -180,7 +180,6 @@ function getRooms({dbName='learnWebsocket', objStoreName='',cb=''}){
     let objStore = db.transaction(objStoreName).objectStore(objStoreName)
     objStore.getAll().onsuccess =function (event) {
       let cursor = event.target.result
-      debugger
       let result = []
       if(cursor){
         cb(cursor)
